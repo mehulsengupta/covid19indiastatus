@@ -14,7 +14,7 @@ function ErrorUI() {
       <div className="row">
         <div className="col-lg reloadbutton">
           <a className="btn btn-primary" href="/">
-            Reload
+            {"Try Again"}
           </a>
         </div>
       </div>

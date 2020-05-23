@@ -6,7 +6,7 @@ export default function Footer() {
     <>
       <div className="footer">
         <a
-          href="https://github.com/mehulsengupta/covid19-india-react"
+          href="https://github.com/mehulsengupta/covid19indiastatus"
           target="_blank"
           rel="noopener noreferrer"
         >

@@ -1,0 +1,568 @@
+/** Generic CSS **********************************************************************************************/
+
+.react-slidedown.districtsslidedown {
+  /** overriding default react-slidedown css */
+  height: 0;
+  transition-property: none;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+}
+
+/** Align divs on same line */
+.samelinedivalign {
+  display: flex;
+  flex-direction: row;
+}
+
+/** Generic CSS **********************************************************************************************/
+
+/** State level styling Start ********************************************************************************/
+
+/** State Table Header color and font-color - Overriding bootstrap classes*/
+.table > .thead-dark > tr > th {
+  background-color: rgb(184, 185, 185);
+  color: rgb(46, 46, 46);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  border: 5px solid rgb(248, 245, 245);
+  border-radius: 12px;
+}
+
+/** State Table header hover */
+.table > .thead-dark > tr > th:hover {
+  background-color: rgb(161, 159, 159);
+  color: rgb(7, 94, 134);
+}
+
+/** State Table body */
+.table > tbody {
+  background-color: rgba(250, 164, 164, 0.185);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-weight: 500;
+  color: rgb(51, 50, 49);
+}
+
+/** Bordering table rows */
+.table > tbody > tr > td {
+  border: 7px solid white;
+  border-radius: 20px;
+}
+
+/** Hovering table rows */
+.table > tbody > tr:hover {
+  color: rgb(179, 18, 18);
+}
+
+/** CSS to show confirmed in red (state level) */
+.table > tbody > tr > td > div > .deltaconfirmed {
+  color: red;
+  font-size: 12px;
+}
+
+/** CSS to show active in orange (state level) */
+.table > tbody > tr > td > div > .deltaactive {
+  color: orange;
+  font-size: 12px;
+}
+
+/** CSS to show recovered in green (state level) */
+.table > tbody > tr > td > div > .deltarecovered {
+  color: green;
+  font-size: 12px;
+}
+
+/** CSS to show deaths in gray (state level) */
+.table > tbody > tr > td > div > .deltadeaths {
+  color: gray;
+  font-size: 12px;
+}
+
+/** To align actual numbers to right for proper visibility */
+.table > tbody > tr > td > div > .nondelta {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/** State level styling End **********************************************************************************/
+
+/** District level styling Start *****************************************************************************/
+
+/** District Table body */
+.table > .district {
+  background-color: rgb(225, 225, 247);
+  font-weight: 200;
+}
+
+/** District hover rows */
+tbody.district > tr:hover {
+  color: rgb(58, 58, 252);
+}
+
+/** CSS to show confirmed in red (district level) */
+.table > .district > tr > td > div > .deltaconfirmeddistrict {
+  color: red;
+  font-size: 12px;
+}
+
+/** CSS to show active in orange (district level) */
+.table > .district > tr > td > div > .deltaactivedistrict {
+  color: orange;
+  font-size: 12px;
+}
+
+/** CSS to show recovered in green (district level) */
+.table > .district > tr > td > div > .deltarecovereddistrict {
+  color: green;
+  font-size: 12px;
+}
+
+/** CSS to show deaths in gray (district level) */
+.table > .district > tr > td > div > .deltadeceaseddistrict {
+  color: gray;
+  font-size: 12px;
+}
+
+/** To align actual numbers to right for proper visibility (district level) */
+.table > .district > tr > td > div > .nondeltadistrict {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/** Zonal Colors Start*/
+.table > .district > tr > .Red {
+  background-color: rgb(252, 190, 190);
+}
+
+.table > .district > tr > .Orange {
+  background-color: rgb(255, 228, 177);
+}
+
+.table > .district > tr > .Green {
+  background-color: rgb(177, 255, 177);
+}
+/** Zonal Colors End */
+
+/** District level styling End *******************************************************************************/
+
+/** Total count styling Start ********************************************************************************/
+
+/** Overall CSS for all total counts */
+.nationalcount {
+  background-color: rgb(241, 241, 234);
+  color: rgb(125, 173, 247);
+  border: 5px solid white;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 600;
+}
+
+.totalconfirmed {
+  color: rgb(255, 143, 143);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.totalactive {
+  color: rgb(253, 191, 97);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.totalrecovered {
+  color: rgb(136, 253, 136);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.totaldeaths {
+  color: rgb(158, 157, 157);
+  font-size: 25px;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.totaldeltaconfirmed {
+  color: red;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.totaldeltarecovered {
+  color: green;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.totaldeltaactive {
+  color: orange;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.totaldeltadeaths {
+  color: gray;
+  font-size: 20px;
+  font-weight: 500;
+}
+/** Total count CSS end **************************************************************************************/
+
+/** CSS for Dropdown List Start ******************************************************************************/
+.mapdropdown {
+  padding-top: 8px;
+}
+
+/** Confirmed List */
+#dropdown-basic-button-confirmed {
+  font-size: 20px;
+  width: 175px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  color: rgb(250, 49, 49);
+  background-color: rgb(252, 208, 208);
+  border-radius: 10px;
+  transition: all 750ms;
+  border: 1px solid rgb(228, 90, 90);
+}
+
+#dropdown-basic-button-confirmed:hover {
+  background-color: rgb(252, 229, 229);
+}
+
+#dropdown-basic-button-confirmed:focus {
+  box-shadow: 0 0 3px 2px #f87878;
+}
+
+/** Active List */
+#dropdown-basic-button-active {
+  font-size: 20px;
+  width: 175px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  color: rgb(250, 129, 49);
+  background-color: rgb(248, 220, 182);
+  border-radius: 10px;
+  transition: all 750ms;
+  border: 1px solid rgb(173, 108, 34);
+  margin-left: 0;
+  margin-right: auto;
+}
+
+#dropdown-basic-button-active:hover {
+  background-color: rgb(252, 239, 210);
+}
+
+#dropdown-basic-button-active:focus {
+  box-shadow: 0 0 3px 2px #e97f05;
+}
+
+/** Recovered/Recovery Rate List */
+#dropdown-basic-button-recovered,
+#dropdown-basic-button-recovery_rate {
+  font-size: 20px;
+  width: 175px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  color: rgb(57, 167, 67);
+  background-color: rgb(198, 253, 197);
+  border-radius: 10px;
+  transition: all 750ms;
+  border: 1px solid rgb(83, 158, 40);
+  margin-left: 0;
+  margin-right: auto;
+}
+
+#dropdown-basic-button-recovered:hover,
+#dropdown-basic-button-recovery_rate:hover {
+  background-color: rgb(226, 255, 230);
+}
+
+#dropdown-basic-button-recovered:focus,
+#dropdown-basic-button-recovery_rate:focus {
+  box-shadow: 0 0 3px 2px #2be905;
+}
+
+/** Death/Death Rate List */
+#dropdown-basic-button-deaths,
+#dropdown-basic-button-death_rate {
+  font-size: 20px;
+  width: 175px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  color: rgb(61, 61, 63);
+  background-color: rgb(199, 199, 199);
+  border-radius: 10px;
+  transition: all 750ms;
+  border: 1px solid rgb(117, 117, 117);
+  margin-left: 0;
+  margin-right: auto;
+}
+
+#dropdown-basic-button-deaths:hover,
+#dropdown-basic-button-death_rate:hover {
+  background-color: rgb(224, 226, 226);
+}
+
+#dropdown-basic-button-deaths:focus,
+#dropdown-basic-button-death_rate:focus {
+  box-shadow: 0 0 3px 2px #7c7b7a;
+}
+
+/** Deceased List */
+#dropdown-basic-button-deceased {
+  font-size: 20px;
+  width: 175px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  color: rgb(61, 61, 63);
+  background-color: rgb(199, 199, 199);
+  border-radius: 10px;
+  transition: all 750ms;
+  border: 1px solid rgb(117, 117, 117);
+  margin-left: 0;
+  margin-right: auto;
+}
+
+#dropdown-basic-button-deceased:hover {
+  background-color: rgb(224, 226, 226);
+}
+
+#dropdown-basic-button-deceased:focus {
+  box-shadow: 0 0 3px 2px #7c7b7a;
+}
+
+/** Zonal List */
+#dropdown-basic-button-zones {
+  font-size: 20px;
+  width: 175px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  color: #0c6611;
+  background-color: rgb(255, 210, 143);
+  border-radius: 10px;
+  transition: all 750ms;
+  border: 1px solid #f58013;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+#dropdown-basic-button-zones:hover {
+  background-color: rgb(255, 230, 191);
+}
+
+#dropdown-basic-button-zones:focus {
+  box-shadow: 0 0 3px 2px #e97f05d5;
+}
+
+/** Menu items */
+#dropdownmenu {
+  font-size: 20px;
+  width: 160px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  color: rgb(18, 18, 19);
+}
+
+#dropdownmenu:hover {
+  background-color: rgb(228, 250, 255);
+  color: rgb(18, 31, 214);
+}
+
+/** CSS for Dropdown List End ********************************************************************************/
+
+/** CSS for Linear Gradient Start ****************************************************************************/
+#gradientbox {
+  margin-right: 0;
+  margin-left: auto;
+  width: 400px;
+  height: 30px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: blue;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+/** Used in gradient display */
+.fill {
+  flex: 1;
+  text-align: center;
+}
+/** CSS for Linear Gradient End ******************************************************************************/
+
+/** CSS for Back Button **************************************************************************************/
+.backbutton {
+  background-color: #c8f1fc;
+  color: #040563;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  border-radius: 12px;
+  transition: all 750ms;
+}
+
+.backbutton:hover {
+  background-color: rgb(216, 216, 250);
+  color: #080872;
+}
+
+.backbuttondiv {
+  margin-left: auto;
+  margin-right: 0;
+}
+/*************************************************************************************************************/
+
+/** CSS for map headings *************************************************************************************/
+.heading {
+  text-align: justify;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #06067c;
+}
+/*************************************************************************************************************/
+
+/** CSS for date/time ****************************************************************************************/
+.ason {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #040563;
+  font-weight: 600;
+  font-size: large;
+}
+
+.tickingclock {
+  margin-left: auto;
+  margin-right: 0;
+  font-size: medium;
+  color: rgb(12, 12, 167);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: normal;
+}
+
+/*************************************************************************************************************/
+/** Total count for State ************************************************************************************/
+.statecount {
+  background-color: rgb(241, 241, 234);
+  color: rgb(125, 173, 247);
+  border: 5px solid white;
+  border-radius: 10px;
+  font-size: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 400;
+}
+
+.statetotalconfirmed {
+  color: rgb(255, 143, 143);
+  font-size: 18px;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.statetotalrecovered {
+  color: rgb(136, 253, 136);
+  font-size: 18px;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.statetotaldeaths {
+  color: rgb(158, 157, 157);
+  font-size: 18px;
+  font-weight: bold;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+/*************************************************************************************************************/
+
+/** Error Handling Start *************************************************************************************/
+.errorheading {
+  font-size: 100px;
+  text-align: center;
+  background-color: rgb(255, 204, 204);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  border-radius: 25px;
+  border: 8px solid white;
+}
+
+.errorbody {
+  font-size: 25px;
+  text-align: center;
+  background-color: rgb(255, 244, 230);
+  color: #040650;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  border-radius: 25px;
+  border: 8px solid white;
+}
+
+.reloadbutton {
+  text-align: center;
+}
+/** Error Handling End ***************************************************************************************/
+
+/** Loading indicator styling ********************************************************************************/
+.loadingstyle {
+  width: "100%";
+  height: "100";
+  display: "flex";
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+}
+/*************************************************************************************************************/
+
+/** Heading & Footer Start CSS *******************************************************************************/
+.headertag {
+  font-size: medium;
+  text-align: center;
+}
+
+.headerdiv {
+  background-color: #ececec;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #040650;
+  border: 8px solid white;
+  border-radius: 18px;
+  padding: 10px;
+  text-align: center;
+}
+
+.virusicon {
+  content: url("./icons/covid19icon.png");
+  height: 40px;
+  width: 40px;
+  display: block;
+  display: inline-block;
+}
+
+.footer {
+  text-align: center;
+}
+
+/*************************************************************************************************************/
+
+/* div {
+  background-color: #276827;
+  border: 2px solid black;
+} */

@@ -29,7 +29,8 @@ export function getRates(totals, criteria, type) {
           return data;
         })
       )
-    : totals.map((stateData) => {
+    : //for country
+      totals.map((stateData) => {
         const _stateData = {};
         Object.assign(_stateData, {
           id: stateData.statecode,

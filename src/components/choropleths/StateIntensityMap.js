@@ -94,7 +94,11 @@ function StateIntensityMap(props) {
         Object.assign(_districtData, {
           id: _district.district,
           state: _district.district,
-          value: parseInt(_district[criteria.toLowerCase()]),
+          value: parseInt(
+            _district[criteria.toLowerCase()] < 0
+              ? 0
+              : _district[criteria.toLowerCase()]
+          ),
           criteria:
             criteria === dropDownMenu[3] ? tableHeader.DEATHS : criteria,
         });

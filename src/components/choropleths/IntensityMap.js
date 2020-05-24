@@ -70,7 +70,11 @@ function IntensityMap(props) {
       Object.assign(_stateData, {
         id: stateData.statecode,
         state: stateData.state,
-        value: parseInt(stateData[criteria.toLowerCase()]),
+        value: parseInt(
+          stateData[criteria.toLowerCase()] < 0
+            ? 0
+            : stateData[criteria.toLowerCase()]
+        ),
         criteria,
       });
       data.push(_stateData);

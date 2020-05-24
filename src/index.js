@@ -9,14 +9,26 @@ import "./App.css";
 import App from "./App";
 import ErrorBoundary from "./components/errorhandling/ErrorBoundary";
 import ErrorUI from "./components/errorhandling/ErrorUI";
+import PageNotFound from "./components/errorhandling/PageNotFound";
 
+//main routing to route between main page, error page and page not found
 ReactDOM.render(
   <Router>
     <Switch>
       <Route path="/error" component={ErrorUI} />
-      <ErrorBoundary>
-        <Route exact path="/" component={App} />
-      </ErrorBoundary>
+
+      {/* to prevent unnecessary unmount and remount, render prop is used with inline*/}
+      <Route
+        path="/"
+        exact
+        render={() => (
+          <ErrorBoundary>
+            <App />
+          </ErrorBoundary>
+        )}
+      />
+
+      <Route component={PageNotFound} />
     </Switch>
   </Router>,
 

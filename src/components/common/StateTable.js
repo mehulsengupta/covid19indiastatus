@@ -13,7 +13,7 @@ import DistrictTable from "./DistrictTable";
 function StateTable(props) {
   return (
     <>
-      <table className="table table-striped table-hover">
+      <table className="table table-striped table-hover table-responsive">
         <thead className="thead-dark">
           <tr>
             <th

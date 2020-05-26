@@ -33,7 +33,7 @@ function Timer(props) {
               }`}
               onClick={props.toggleMode}
             >
-              <i className={props.darkMode ? "far fa-sun" : "far fa-moon"}></i>
+              <i className={props.darkMode ? "fas fa-sun" : "fas fa-moon"}></i>
             </button>
           </div>
         </div>

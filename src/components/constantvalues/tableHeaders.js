@@ -15,5 +15,6 @@ export default {
   TIME_NOW: "Time now: ",
   NA: "N/A",
   ERROR_HEADING: "Oops! There was an error.",
-  ERROR_MESSAGE: `Try again and if the issue persists, contact the site owner`,
+  ERROR_MESSAGE:
+    "Check your internet connection and try again. If the issue persists, contact the site owner.",
 };

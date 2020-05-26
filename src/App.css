@@ -823,28 +823,6 @@ tbody.districtdark > tr:hover {
 
 /** DARK MODE CSS END ****************************************************************************************/
 
-/** Custom Scroll-Bar CSS ************************************************************************************/
-
-::-webkit-scrollbar {
-  width: 5px;
-  background-color: rgb(41, 40, 40);
-}
-
-::-webkit-scrollbar-track {
-  background-color: rgb(124, 124, 124);
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 12px;
-  background-color: rgb(197, 197, 197);
-}
-
-::-webkit-scrollbar-track-piece {
-  background-color: rgb(138, 138, 138);
-}
-
-/*************************************************************************************************************/
-
 /* div {
   /* background-color: #276827; */
 /* border: 2px solid black;

@@ -42,6 +42,9 @@ function StateIntensityMap(props) {
     : "";
   const DEFAULT_COLOR = mapConstants.DEFAULT_COLOR;
 
+  //styling specific for dark mode vs light mode
+  const stateCountStyle = props.darkMode ? "statecountdark" : "statecountlight";
+
   //hooks
   const [criteria, setCriteria] = useState(tableHeader.CONFIRMED);
   const [districtTotals, setDistrictTotals] = useState([]);
@@ -141,19 +144,19 @@ function StateIntensityMap(props) {
     <>
       {props.stateTotals.map((district) => (
         <div className="row" key={district.statecode}>
-          <div className="col statecount text-center">
+          <div className={`col ${stateCountStyle} text-center`}>
             <div>{tableHeader.CONFIRMED}</div>
             <div className="statetotalconfirmed">
               {formatNumbersWithComma(district.confirmed)}
             </div>
           </div>
-          <div className="col statecount text-center">
+          <div className={`col ${stateCountStyle} text-center`}>
             <div>{tableHeader.RECOVERED}</div>
             <div className="statetotalrecovered">
               {formatNumbersWithComma(district.recovered)}
             </div>
           </div>
-          <div className="col statecount text-center">
+          <div className={`col ${stateCountStyle} text-center`}>
             <div>{tableHeader.DECEASED}</div>
             <div className="statetotaldeaths">
               {formatNumbersWithComma(district.deaths)}
@@ -176,6 +179,7 @@ function StateIntensityMap(props) {
                 <LinearGradient
                   data={getGradientData(data, COLOR_RANGE)}
                   criteria={criteria}
+                  darkMode={props.darkMode}
                 />
               </div>
             )}
@@ -184,7 +188,11 @@ function StateIntensityMap(props) {
             <div className="col-md">
               <div className="samelinedivalign">
                 <div>
-                  <h4 className="heading">{stateName}</h4>
+                  <h4
+                    className={props.darkMode ? "headingdark" : "headinglight"}
+                  >
+                    {stateName}
+                  </h4>
                 </div>
                 <div className="backbuttondiv">
                   <button
@@ -244,6 +252,7 @@ function StateIntensityMap(props) {
               criteria={criteria}
               mapType={mapConstants.MAP_TYPE_STATE}
               statecode={props.selectedState}
+              darkMode={props.darkMode}
             />
           )}
         </>

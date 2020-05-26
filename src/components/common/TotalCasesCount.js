@@ -3,13 +3,19 @@ import React from "react";
 import TableHeader from "../constantvalues/tableHeaders";
 import { formatNumbersWithComma } from "../../utils/formatNumbersWithComma";
 
+//component for total counting of country
 function TotalCasesCount(props) {
+  //specific styling for dark mode vs light mode
+  const nationalCountStyle = props.darkMode
+    ? "nationalcountdark"
+    : "nationalcountlight";
+
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-lg">
           <div className="samelinedivalign">
-            <div className="ason">
+            <div className={props.darkMode ? "asondark" : "asonlight"}>
               {TableHeader.AS_ON +
                 props.nationalCount.map((state) => state.lastupdatedtime)}
             </div>
@@ -20,7 +26,7 @@ function TotalCasesCount(props) {
         {props.nationalCount.map((state) => (
           <React.Fragment key={state + "Fragment"}>
             <div
-              className="col nationalcount text-center"
+              className={`col ${nationalCountStyle} text-center`}
               key={state.confirmed}
             >
               <div>{TableHeader.CONFIRMED}</div>
@@ -32,7 +38,10 @@ function TotalCasesCount(props) {
               </div>
             </div>
 
-            <div className="col nationalcount text-center" key={state.active}>
+            <div
+              className={`col ${nationalCountStyle} text-center`}
+              key={state.active}
+            >
               <div>{TableHeader.ACTIVE}</div>
               <div className="totalactive">
                 <div className="totaldeltaactive">
@@ -44,7 +53,7 @@ function TotalCasesCount(props) {
               </div>
             </div>
             <div
-              className="col nationalcount  text-center"
+              className={`col ${nationalCountStyle} text-center`}
               key={state.recovered}
             >
               <div>{TableHeader.RECOVERED}</div>
@@ -55,7 +64,10 @@ function TotalCasesCount(props) {
                 {formatNumbersWithComma(state.recovered)}
               </div>
             </div>
-            <div className="col nationalcount  text-center" key={state.deaths}>
+            <div
+              className={`col ${nationalCountStyle} text-center`}
+              key={state.deaths}
+            >
               <div>{TableHeader.DEATHS}</div>
               <div className="totaldeaths">
                 <div className="totaldeltadeaths">

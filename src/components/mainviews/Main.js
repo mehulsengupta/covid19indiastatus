@@ -13,7 +13,7 @@ import tableHeaders from "../constantvalues/tableHeaders";
 import SlideDown from "react-slidedown";
 import mapConstants from "../constantvalues/mapConstants";
 
-function TableMain() {
+function TableMain(props) {
   /** Hooks definition start */
   const [stateTotals, setStateTotals] = useState([]); //hook to store state array
 
@@ -211,7 +211,7 @@ function TableMain() {
     <SlideDown>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-lg">
+          <div className="col">
             {
               <Table
                 stateTotals={stateTotals.filter(
@@ -226,10 +226,11 @@ function TableMain() {
                 isExpanded={isExpanded.expanded}
                 onSort={sortData}
                 sortOrder={sortOrder}
+                darkMode={props.darkMode}
               />
             }
           </div>
-          <div className="col-lg">
+          <div className="col">
             <div className="sticky-top">
               {" "}
               <IntensityMap
@@ -239,6 +240,7 @@ function TableMain() {
                 }
                 hoverDistrict={hoverDistrict}
                 onStateClick={onMapStateClick}
+                darkMode={props.darkMode}
               />
             </div>
           </div>

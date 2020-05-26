@@ -1,8 +1,12 @@
 import React from "react";
 
-function Header() {
+function Header(props) {
   return (
-    <div className="jumbotron-fluid headerdiv">
+    <div
+      className={`jumbotron-fluid ${
+        props.darkMode ? "headerdivdark" : "headerdivlight"
+      }`}
+    >
       <h1 className="h1">
         <i className="virusicon"></i> COVID19 India Status{" "}
         <i className="virusicon"></i>

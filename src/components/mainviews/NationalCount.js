@@ -3,17 +3,23 @@ import React, { useState, useEffect } from "react";
 import { getStateWise } from "../../apiUtils/Totals";
 import TotalCountCode from "../constantvalues/tableHeaders";
 import TotalCasesCount from "../common/TotalCasesCount";
+import useNumberRace from "../../customhooks/useNumberRace";
+import tableHeader from "../constantvalues/tableHeaders";
 
-function NationalCount() {
+function NationalCount(props) {
   /** States defined */
 
   const [stateTotals, setStateTotals] = useState([]);
-  const [deltaConfirmed, setDeltaConfirmed] = useState(0);
-  const [deltaActive, setDeltaActive] = useState(0);
-  const [deltaRecovered, setDeltaRecovered] = useState(0);
-  const [deltaDeaths, setDeltaDeaths] = useState(0);
+  const [deltaConfirmed, setDeltaConfirmed] = useNumberRace(
+    tableHeader.CONFIRMED
+  );
+  const [deltaActive, setDeltaActive] = useNumberRace(tableHeader.ACTIVE);
+  const [deltaRecovered, setDeltaRecovered] = useNumberRace(
+    tableHeader.RECOVERED
+  );
+  const [deltaDeaths, setDeltaDeaths] = useNumberRace(tableHeader.DEATHS);
 
-  /** Fetch data from the API - to be linked to Redux store later on */
+  /** Fetch data from the API - can be linked to Redux store later on */
   useEffect(() => {
     getStateWise().then((data) => setStateTotals(data));
   }, []);
@@ -25,8 +31,7 @@ function NationalCount() {
       state.statecode === TotalCountCode.NATIONALCOUNT
   );
 
-  /**  Get the delta data - to check for undefined (first time) or 
-       empty array since setState updates are visible on next render   */
+  /**  Get the delta data - to prevent pass through of undefined value  */
   const deltaconfirmed =
     nationalCount.length !== 0 ? nationalCount[0].deltaconfirmed : false;
 
@@ -36,54 +41,29 @@ function NationalCount() {
   const deltadeaths =
     nationalCount.length !== 0 ? nationalCount[0].deltadeaths : false;
 
-  // nationalCount.filter((state) => state.deltaconfirmed);
-
-  //  = nationalCount.map((state) => state.deltaconfirmed);
-
-  //  = nationalCount.map((state) => state.deltarecovered);
-  // const deltadeaths = nationalCount.map((state) => state.deltadeaths);
-
   const deltaactive = deltaconfirmed - deltarecovered - deltadeaths;
 
-  /** Timeout function to simulate Race to final count of deltas */
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (deltaConfirmed < deltaconfirmed) {
-        setDeltaConfirmed(() => {
-          if (deltaconfirmed - deltaConfirmed >= 100) {
-            return deltaConfirmed + 100;
-          }
-          return deltaConfirmed + 1;
-        });
-      }
-      if (deltaActive < deltaactive)
-        setDeltaActive(() => {
-          if (deltaactive - deltaActive >= 100) {
-            return deltaActive + 75;
-          }
-          return deltaActive + 1;
-        });
-      if (deltaRecovered < deltarecovered)
-        setDeltaRecovered(() => {
-          if (deltarecovered - deltaRecovered >= 100) {
-            return deltaRecovered + 75;
-          }
-          return deltaRecovered + 1;
-        });
-      if (deltaDeaths < deltadeaths)
-        setDeltaDeaths(() => {
-          if (deltadeaths - deltaDeaths >= 100) {
-            return deltaDeaths + 10;
-          }
-          return deltaDeaths + 1;
-        });
-    }, 10);
-    return () => clearTimeout(timer);
-  });
+  /** Timeout function to simulate Race to final count of deltas - using custom hook*/
+  setTimeout(() => {
+    if (
+      //checking for NaN to prevent false counting
+      !isNaN(parseInt(deltaconfirmed)) &&
+      !isNaN(parseInt(deltaactive)) &&
+      !isNaN(parseInt(deltarecovered)) &&
+      !isNaN(parseInt(deltadeaths))
+    ) {
+      setDeltaConfirmed(parseInt(deltaconfirmed));
+      setDeltaActive(parseInt(deltaactive));
+      setDeltaRecovered(parseInt(deltarecovered));
+      setDeltaDeaths(parseInt(deltadeaths));
+    }
+  }, 10);
 
-  //Component
+  //Component to show national count
   return (
     <TotalCasesCount
+      toggleMode={props.toggleMode}
+      darkMode={props.darkMode}
       nationalCount={nationalCount}
       deltaConfirmed={deltaConfirmed}
       deltaRecovered={deltaRecovered}

@@ -11,6 +11,7 @@ import cssConstants from "../constantvalues/cssconstants";
 import mapConstants from "../constantvalues/mapConstants";
 import cssconstants from "../constantvalues/cssconstants";
 
+//Graph component showing the daily changes
 function DailyChangeGraph(props) {
   const [dailyChanges, setDailyChanges] = useState([]);
   const criteria =
@@ -24,6 +25,12 @@ function DailyChangeGraph(props) {
   let numbers = [];
   let labels = [];
 
+  //styling for dark vs light mode
+  const defaultTickFontColor = props.darkMode
+    ? cssConstants.GRAPH_DEFAULT_TICK_FONT_COLOR_DARK
+    : cssConstants.GRAPH_DEFAULT_TICK_FONT_COLOR_LIGHT;
+
+  //select specific color bands
   const graphColor =
     criteria ===
       mapConstants.GRAPH_PREFIX + tableHeader.CONFIRMED.toLowerCase() ||
@@ -60,9 +67,13 @@ function DailyChangeGraph(props) {
           pointBorderColor: cssConstants.GRAPH_DEATH_POINT_BORDER_COLOR,
           pointHoverBackgroundColor:
             cssConstants.GRAPH_DEATH_POINT_HOVER_BG_COLOR,
-          legendFontColor: cssConstants.GRAPH_DEATH_LEGEND_FONT_COLOR,
+          legendFontColor: props.darkMode
+            ? cssConstants.GRAPH_DEATH_LEGEND_FONT_COLOR_DARK
+            : cssConstants.GRAPH_DEATH_LEGEND_FONT_COLOR_LIGHT,
           legendFontStyle: cssConstants.GRAPH_DEATH_LEGEND_FONT_STYLE,
-          axesFontColor: cssConstants.GRAPH_DEATH_SCALE_FONT_COLOR,
+          axesFontColor: props.darkMode
+            ? cssConstants.GRAPH_DEATH_SCALE_FONT_COLOR_DARK
+            : cssConstants.GRAPH_DEATH_SCALE_FONT_COLOR_LIGHT,
         };
 
   defaults.global.defaultFontFamily = cssConstants.GRAPH_DEFAULT_FONT_FAMILY;
@@ -93,6 +104,7 @@ function DailyChangeGraph(props) {
     numberOfCases > 0 ? numberOfCases : 0
   );
 
+  //data to be used in graph
   const data = {
     labels: labels,
     datasets: [
@@ -111,6 +123,7 @@ function DailyChangeGraph(props) {
     ],
   };
 
+  //other misc options
   const options = {
     maintainAspectRatio: true,
     responsive: true,
@@ -126,7 +139,7 @@ function DailyChangeGraph(props) {
       xAxes: [
         {
           ticks: {
-            fontColor: cssConstants.GRAPH_DEFAULT_TICK_FONT_COLOR,
+            fontColor: defaultTickFontColor,
             fontStyle: cssConstants.GRAPH_DEFAULT_TICK_FONT_STYLE,
             beginAtZero: true,
           },
@@ -146,7 +159,7 @@ function DailyChangeGraph(props) {
       yAxes: [
         {
           ticks: {
-            fontColor: cssConstants.GRAPH_DEFAULT_TICK_FONT_COLOR,
+            fontColor: defaultTickFontColor,
             fontStyle: cssConstants.GRAPH_DEFAULT_TICK_FONT_STYLE,
             beginAtZero: true,
             userCallback: function (label, index, labels) {
@@ -172,7 +185,7 @@ function DailyChangeGraph(props) {
     },
   };
 
-  //stucture array to use raw data
+  //stucture array to use raw data using Line graph
   return (
     <div>
       <Line data={data} height={300} width={400} options={options} />

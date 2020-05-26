@@ -11,12 +11,16 @@ import DistrictTable from "./DistrictTable";
 
 //To generate list of states
 function StateTable(props) {
+  //styling for dark mode vs light mode
+  const tableHeaderStyle = props.darkMode ? "dark" : "light";
+
   return (
     <>
       <table className="table table-striped table-hover table-responsive">
         <thead className="thead-dark">
           <tr>
             <th
+              className={tableHeaderStyle}
               onClick={() =>
                 props.onSort(
                   props.stateTotals,
@@ -39,6 +43,7 @@ function StateTable(props) {
               ></i>
             </th>
             <th
+              className={tableHeaderStyle}
               onClick={() =>
                 props.onSort(
                   props.stateTotals,
@@ -61,6 +66,7 @@ function StateTable(props) {
               ></i>
             </th>
             <th
+              className={tableHeaderStyle}
               onClick={() =>
                 props.onSort(
                   props.stateTotals,
@@ -83,6 +89,7 @@ function StateTable(props) {
               ></i>
             </th>
             <th
+              className={tableHeaderStyle}
               onClick={() =>
                 props.onSort(
                   props.stateTotals,
@@ -105,6 +112,7 @@ function StateTable(props) {
               ></i>
             </th>
             <th
+              className={tableHeaderStyle}
               onClick={() =>
                 props.onSort(
                   props.stateTotals,
@@ -128,7 +136,7 @@ function StateTable(props) {
             </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className={tableHeaderStyle}>
           {props.stateTotals.map((selectedStateTotal) => (
             <React.Fragment key={selectedStateTotal.statecode + "FragmentKey"}>
               <tr
@@ -150,7 +158,7 @@ function StateTable(props) {
                   props.onMouseEnter(() => selectedStateTotal.statecode)
                 }
               >
-                <td>
+                <td className="">
                   <i
                     className={
                       props.isExpanded &&
@@ -244,7 +252,9 @@ function StateTable(props) {
                     <td
                       colSpan="5"
                       align="center"
-                      style={{ backgroundColor: "white" }}
+                      className={
+                        props.darkMode ? "districtdivdark" : "districtdivlight"
+                      }
                     >
                       {" "}
                       <SlideDown className="districtsslidedown">
@@ -255,6 +265,7 @@ function StateTable(props) {
                             table: sortTypes.DISTRICT,
                           })}
                           onDistrictMouseEnter={props.onDistrictMouseEnter}
+                          darkMode={props.darkMode}
                         />
                       </SlideDown>
                     </td>

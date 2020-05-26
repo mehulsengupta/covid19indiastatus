@@ -16,6 +16,7 @@ import { getStateWise } from "../../apiUtils/Totals";
 import { getDropDown } from "./getDropDownCountry";
 import { getDropDownGraph } from "./getDropDownGraph";
 import { getRates } from "./getRates";
+import ScrollToTopButton from "../common/ScrollToTopButton";
 
 //define constants
 const INDIA_TOPO_JSON = require("../../topoJson/india.topo.json");
@@ -30,6 +31,9 @@ function IntensityMap(props) {
   const [displayType, setDisplayType] = useState(mapConstants.DISPLAY_MAP);
 
   const { promiseInProgress } = usePromiseTracker(); // destructuring - returns an object with named property
+
+  //styling for dark vs light mode
+  const headingStyle = props.darkMode ? "headingdark" : "headinglight";
 
   //dropdown menus for country map against country graph
   const dropDownMenu =
@@ -97,6 +101,7 @@ function IntensityMap(props) {
     <>
       <LoadingOverlay active={promiseInProgress} spinner={<LoadingIndicator />}>
         {/* for states being selected - hide country map and show state map based on state selected */}
+
         <div className="container-fluid mapdropdown">
           {props.selectedStateDistricts !== "" && (
             <div className="row">
@@ -108,6 +113,7 @@ function IntensityMap(props) {
                   )}
                   hoverDistrict={props.hoverDistrict}
                   onStateClick={props.onStateClick}
+                  darkMode={props.darkMode}
                 />
               </div>
             </div>
@@ -131,7 +137,7 @@ function IntensityMap(props) {
                   <div className="col-lg">
                     <div className="samelinedivalign">
                       <div>
-                        <h2 className="heading">
+                        <h2 className={headingStyle}>
                           {mapConstants.MAP_HEADING_COUNTRY}
                         </h2>
                       </div>
@@ -147,6 +153,7 @@ function IntensityMap(props) {
                     <DailyChangeGraph
                       criteria={criteria}
                       mapType={mapConstants.MAP_TYPE_COUNTRY}
+                      darkMode={props.darkMode}
                     />
                   </div>
                 </div>
@@ -166,7 +173,10 @@ function IntensityMap(props) {
                     />
                   </div>
                   <div className="col-md">
-                    <LinearGradient data={getGradientData(data, COLOR_RANGE)} />
+                    <LinearGradient
+                      data={getGradientData(data, COLOR_RANGE)}
+                      darkMode={props.darkMode}
+                    />
                   </div>
                 </div>
 
@@ -174,7 +184,7 @@ function IntensityMap(props) {
                   <div className="col-lg">
                     <div className="samelinedivalign">
                       <div>
-                        <h2 className="heading">
+                        <h2 className={headingStyle}>
                           {mapConstants.MAP_HEADING_COUNTRY}
                         </h2>
                       </div>
@@ -214,6 +224,7 @@ function IntensityMap(props) {
               </>
             )}
         </div>
+        <ScrollToTopButton />
       </LoadingOverlay>
     </>
   );

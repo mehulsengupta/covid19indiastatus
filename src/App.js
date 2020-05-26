@@ -8,16 +8,21 @@ import NationalCount from "./components/mainviews/NationalCount";
 import Timer from "./components/mainviews/Timer";
 import Footer from "./components/headerfooter/Footer";
 import LoadingIndicator from "./components/loader/LoadingIndicator";
+import useDarkMode from "./customhooks/useDarkMode";
 
 function App() {
   const { promiseInProgress } = usePromiseTracker(); // destructuring - returns an object with named property
+  const { darkMode, toggleDarkMode } = useDarkMode();
+
   return (
     <LoadingOverlay active={promiseInProgress} spinner={<LoadingIndicator />}>
-      <Header className="header" />
-      <Timer />
-      <NationalCount />
-      <Main />
-      <Footer />
+      <div className={darkMode ? "darkbody" : "lightbody"}>
+        <Header darkMode={darkMode} />
+        <Timer toggleMode={toggleDarkMode} darkMode={darkMode} />
+        <NationalCount darkMode={darkMode} />
+        <Main darkMode={darkMode} />
+        <Footer />
+      </div>
     </LoadingOverlay>
   );
 }

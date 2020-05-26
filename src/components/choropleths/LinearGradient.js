@@ -3,25 +3,33 @@ import React from "react";
 import tableHeader from "../constantvalues/tableHeaders";
 import { formatNumbersWithComma } from "../../utils/formatNumbersWithComma";
 
+//component to generate the linear gradient legend used in map
 const LinearGradient = (props) => {
+  //styling for dark vs light mode
+  const gradientStyleMode = props.darkMode
+    ? "gradientboxdark"
+    : "gradientboxlight";
+
+  //for zones, don't show gradient
   if (props.criteria === tableHeader.ZONES)
     return (
       <div>
-        <div id="gradientbox"></div>
-        <div id="gradientbox"></div>
+        <div id={gradientStyleMode}></div>
+        <div id={gradientStyleMode}></div>
       </div>
     );
 
   const { data } = props;
 
+  //styling based on values for each list item
   const gradientStyle = {
     backgroundImage: `linear-gradient(to right, ${data.fromColor} , ${data.toColor})`,
   };
 
   return (
     <div>
-      <div id="gradientbox" style={{ ...gradientStyle }}></div>
-      <div id="gradientbox" className="samelinedivalign">
+      <div id={gradientStyleMode} style={{ ...gradientStyle }}></div>
+      <div id={gradientStyleMode} className="samelinedivalign">
         <span>{data.min}</span>
         <span className="fill"></span>
         <span>

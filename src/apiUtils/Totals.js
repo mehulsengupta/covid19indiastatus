@@ -1,60 +1,33 @@
-import axios from "axios";
-import { trackPromise } from "react-promise-tracker";
-
 import url from "../components/constantvalues/url";
+import { getDataFromApi } from "./getDataFromApi";
+
+//function to get data from specific APIs. Polling can be added for periodic checks using Redux
 
 //statewise data
 export async function getStateWise() {
-  return await trackPromise(
-    axios
-      .get(url.STATEWISE_URL)
-      .then((response) => {
-        return response.data.statewise;
-      })
-      .catch((err) => JSON.stringify(err))
-  );
+  return getDataFromApi(url.STATEWISE_URL).then((data) => data.statewise);
 }
 
 //district wise data for a particular state
 export async function getDistrictWise() {
-  return await trackPromise(
-    axios
-      .get(url.DISTRICTWISE_URL)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => JSON.stringify(error))
-  );
+  return getDataFromApi(url.DISTRICTWISE_URL).then((data) => data);
 }
 
 //zonal data for a particular state
 export async function getZones() {
-  return await trackPromise(
-    axios
-      .get(url.ZONE_LIST)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => JSON.stringify(error))
-  );
+  return getDataFromApi(url.ZONE_LIST).then((data) => data);
 }
 
 //country wide daily changes for graph
 export async function getCountryDailyChanges() {
-  return await trackPromise(
-    axios
-      .get(url.COUNTRY_DAILY_CHANGES)
-      .then((response) => response.data.cases_time_series)
-      .catch((error) => JSON.stringify(error))
+  return getDataFromApi(url.COUNTRY_DAILY_CHANGES).then(
+    (data) => data.cases_time_series
   );
 }
 
 //state wide daily changes for graph
 export async function getStateDailyChanges() {
-  return await trackPromise(
-    axios
-      .get(url.STATE_DAILY_CHANGES)
-      .then((response) => response.data.states_daily)
-      .catch((error) => JSON.stringify(error))
+  return getDataFromApi(url.STATE_DAILY_CHANGES).then(
+    (data) => data.states_daily
   );
 }

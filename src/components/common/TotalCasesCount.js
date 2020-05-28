@@ -2,6 +2,7 @@ import React from "react";
 
 import TableHeader from "../constantvalues/tableHeaders";
 import { formatNumbersWithComma } from "../../utils/formatNumbersWithComma";
+import { formatDate, dateConvertToLocalTimeZone } from "../../utils/dateUtils";
 
 //component for total counting of country
 function TotalCasesCount(props) {
@@ -17,7 +18,9 @@ function TotalCasesCount(props) {
           <div className="samelinedivalign">
             <div className={props.darkMode ? "asondark" : "asonlight"}>
               {TableHeader.AS_ON +
-                props.nationalCount.map((state) => state.lastupdatedtime)}
+                props.nationalCount.map((state) =>
+                  formatDate(dateConvertToLocalTimeZone(state.lastupdatedtime))
+                )}
             </div>
           </div>
         </div>

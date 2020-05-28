@@ -15,8 +15,6 @@ import PageNotFound from "./components/errorhandling/PageNotFound";
 ReactDOM.render(
   <Router>
     <Switch>
-      <Route path="/error" component={ErrorUI} />
-
       {/* to prevent unnecessary unmount and remount, render prop is used with inline*/}
       <Route
         path="/"
@@ -27,7 +25,9 @@ ReactDOM.render(
           </ErrorBoundary>
         )}
       />
-
+      {/* For error page redirects */}
+      <Route path="/error" component={ErrorUI} />
+      {/* For all other invalid URLs */}
       <Route component={PageNotFound} />
     </Switch>
   </Router>,

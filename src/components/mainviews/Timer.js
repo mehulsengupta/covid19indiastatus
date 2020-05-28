@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 
 import TableHeader from "../constantvalues/tableHeaders";
-import { formatDate } from "../../utils/formatDate";
+import { formatDate } from "../../utils/dateUtils";
 
 function Timer(props) {
-  const [dateNow, setDateNow] = useState(formatDate());
+  const [dateNow, setDateNow] = useState(formatDate(new Date()));
 
   //for running clock
   useEffect(() => {
-    const timer = setInterval(() => setDateNow(formatDate()), 1000);
+    const timer = setInterval(() => setDateNow(formatDate(new Date())), 1000);
     return () => clearInterval(timer);
   });
 

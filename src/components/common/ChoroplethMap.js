@@ -19,6 +19,7 @@ const geographyStyle = {
     outline: "none",
     stroke: "blue",
     strokeWidth: "20",
+    cursor: "pointer",
   },
   pressed: {
     //fill: mapConstants.DEFAULT_COLOR,

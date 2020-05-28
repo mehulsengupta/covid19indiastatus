@@ -26,8 +26,10 @@ export function formatDate(dateTimeNow) {
   );
 }
 
+//returns a timevalue in local time zone
 export function dateConvertToLocalTimeZone(date) {
   return new Date(
+    //changes (+/-) wrt IST (330 minutes from UTC) and add differences
     (0 - new Date().getTimezoneOffset() - 330) * 60 * 1000 +
       stringToDate(date).getTime()
   );

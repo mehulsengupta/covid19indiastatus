@@ -1,6 +1,6 @@
 import React from "react";
 
-import TableHeader from "../constantvalues/tableHeaders";
+import tableHeader from "../constantvalues/tableHeaders";
 import { formatNumbersWithComma } from "../../utils/formatNumbersWithComma";
 import { formatDate, dateConvertToLocalTimeZone } from "../../utils/dateUtils";
 
@@ -17,7 +17,7 @@ function TotalCasesCount(props) {
         <div className="col-lg">
           <div className="samelinedivalign">
             <div className={props.darkMode ? "asondark" : "asonlight"}>
-              {TableHeader.AS_ON +
+              {tableHeader.AS_ON +
                 props.nationalCount.map((state) =>
                   formatDate(dateConvertToLocalTimeZone(state.lastupdatedtime))
                 )}
@@ -32,7 +32,7 @@ function TotalCasesCount(props) {
               className={`col ${nationalCountStyle} text-center`}
               key={state.confirmed}
             >
-              <div>{TableHeader.CONFIRMED}</div>
+              <div>{tableHeader.CONFIRMED}</div>
               <div className="totalconfirmed">
                 <div className="totaldeltaconfirmed">
                   {"+" + formatNumbersWithComma(props.deltaConfirmed)}
@@ -45,12 +45,12 @@ function TotalCasesCount(props) {
               className={`col ${nationalCountStyle} text-center`}
               key={state.active}
             >
-              <div>{TableHeader.ACTIVE}</div>
+              <div>{tableHeader.ACTIVE}</div>
               <div className="totalactive">
                 <div className="totaldeltaactive">
                   {props.deltaActive >= 0
                     ? "+" + formatNumbersWithComma(props.deltaActive)
-                    : TableHeader.NA}
+                    : tableHeader.NA}
                 </div>
                 {formatNumbersWithComma(state.active)}
               </div>
@@ -59,7 +59,7 @@ function TotalCasesCount(props) {
               className={`col ${nationalCountStyle} text-center`}
               key={state.recovered}
             >
-              <div>{TableHeader.RECOVERED}</div>
+              <div>{tableHeader.RECOVERED}</div>
               <div className="totalrecovered">
                 <div className="totaldeltarecovered">
                   {"+" + formatNumbersWithComma(props.deltaRecovered)}
@@ -71,7 +71,7 @@ function TotalCasesCount(props) {
               className={`col ${nationalCountStyle} text-center`}
               key={state.deaths}
             >
-              <div>{TableHeader.DEATHS}</div>
+              <div>{tableHeader.DEATHS}</div>
               <div className="totaldeaths">
                 <div className="totaldeltadeaths">
                   {"+" + formatNumbersWithComma(props.deltaDeaths)}

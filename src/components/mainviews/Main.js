@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import { getStateWise, getDistrictWise, getZones } from "../../apiUtils/Totals";
-import Table from "../common/StateTable";
+import StateTable from "../common/StateTable";
 
 import IntensityMap from "../choropleths/IntensityMap";
 
@@ -9,24 +8,26 @@ import { sortColumns } from "../../utils/sortColumns";
 import mapDistrictZones from "../../utils/mapDistrictZones";
 
 import sortTypes from "../constantvalues/sortTypes";
-import tableHeaders from "../constantvalues/tableHeaders";
+import tableHeader from "../constantvalues/tableHeaders";
 import SlideDown from "react-slidedown";
 import mapConstants from "../constantvalues/mapConstants";
+import useFetch from "../../customhooks/useFetch";
+import fetchDataTypes from "../constantvalues/fetchDataTypes";
 
-function TableMain(props) {
+function Main(props) {
   /** Hooks definition start */
-  const [stateTotals, setStateTotals] = useState([]); //hook to store state array
+  const [stateTotals, setStateTotals] = useFetch(fetchDataTypes.STATE); //hook to store state array
 
-  const [districtTotals, setDistrictTotals] = useState([]); //hook to store district object with nested statecode
+  const [districtTotals] = useFetch(fetchDataTypes.DISTRICT); //hook to store district object with nested statecode
   //and data
 
-  const [zones, setZones] = useState([]); //hook to store zones nation wide
+  const [zones] = useFetch(fetchDataTypes.ZONE); //hook to store zones nation wide
 
   const [sortOrder, setSortOrder] = useState({
     flag: sortTypes.INITIAL,
     table: sortTypes.STATE,
-    stateColumn: tableHeaders.CONFIRMED,
-    districtColumn: tableHeaders.CONFIRMED,
+    stateColumn: tableHeader.CONFIRMED,
+    districtColumn: tableHeader.CONFIRMED,
     stateIcon: sortTypes.DESCENDINGICON,
     districtIcon: sortTypes.DESCENDINGICON,
     order: sortTypes.ASCENDING,
@@ -51,23 +52,9 @@ function TableMain(props) {
 
   /** Hooks definition end */
 
-  //use-effect to fetch and store data asynchronously from API
-  useEffect(() => {
-    getStateWise().then((data) => setStateTotals(data));
-  }, []);
-
-  useEffect(() => {
-    getDistrictWise().then((data) => setDistrictTotals(data));
-  }, []);
-
-  useEffect(() => {
-    getZones().then((data) => setZones(data));
-  }, []);
-  // end use-effect
-
   //first time display sort to confirmed descending
   if (sortOrder.flag)
-    sortColumns(stateTotals, sortTypes.DESCENDING, tableHeaders.CONFIRMED);
+    sortColumns(stateTotals, sortTypes.DESCENDING, tableHeader.CONFIRMED);
 
   const getDistrictArray = (statecode) => {
     //get districts list for particular state out of the list of all districts of all states
@@ -81,11 +68,11 @@ function TableMain(props) {
     sortColumns(
       stateSelected[0].districtData,
       sortTypes.DESCENDING,
-      tableHeaders.CONFIRMED
+      tableHeader.CONFIRMED
     ); //sort district arrays to show default order of highest confirmed cases descending
 
     Object.assign(sortOrder, {
-      districtColumn: tableHeaders.CONFIRMED,
+      districtColumn: tableHeader.CONFIRMED,
       districtIcon: sortTypes.DESCENDINGICON,
     }); //default column to be shown when district table viewed - confirmed and descending along with fa icon
 
@@ -213,10 +200,10 @@ function TableMain(props) {
         <div className="row">
           <div className="col">
             {
-              <Table
+              <StateTable
                 stateTotals={stateTotals.filter(
                   (state) =>
-                    state.statecode !== tableHeaders.NATIONALCOUNT &&
+                    state.statecode !== tableHeader.NATIONALCOUNT &&
                     parseInt(state.confirmed) !== 0
                 )}
                 onClick={onRowClick}
@@ -250,4 +237,4 @@ function TableMain(props) {
   );
 }
 
-export default TableMain;
+export default Main;

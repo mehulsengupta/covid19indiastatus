@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { usePromiseTracker } from "react-promise-tracker";
 import LoadingOverlay from "react-loading-overlay";
 
@@ -12,11 +12,12 @@ import DailyChangeGraph from "../graphs/DailyChangeGraph";
 import LoadingIndicator from "../loader/LoadingIndicator";
 import { getGradientData } from "./getGradientData";
 import { getColorRange } from "./getColorRange";
-import { getStateWise } from "../../apiUtils/Totals";
 import { getDropDown } from "./getDropDownCountry";
 import { getDropDownGraph } from "./getDropDownGraph";
 import { getRates } from "./getRates";
 import ScrollToTopButton from "../common/ScrollToTopButton";
+import useFetch from "../../customhooks/useFetch";
+import fetchDataTypes from "../constantvalues/fetchDataTypes";
 
 //define constants
 const INDIA_TOPO_JSON = require("../../topoJson/india.topo.json");
@@ -27,7 +28,7 @@ const DEFAULT_COLOR = mapConstants.DEFAULT_COLOR;
 //Component
 function IntensityMap(props) {
   const [criteria, setCriteria] = useState(tableHeader.CONFIRMED);
-  const [stateTotals, setStateTotals] = useState([]);
+  const [stateTotals] = useFetch(fetchDataTypes.STATE);
   const [displayType, setDisplayType] = useState(mapConstants.DISPLAY_MAP);
 
   const { promiseInProgress } = usePromiseTracker(); // destructuring - returns an object with named property
@@ -48,11 +49,6 @@ function IntensityMap(props) {
   const onClick = (eventKey, event) => {
     setCriteria(() => eventKey);
   };
-
-  //get state data - can be replaced by Redux fetch from store
-  useEffect(() => {
-    getStateWise().then((data) => setStateTotals(data));
-  }, []);
 
   //find the total numbers for the entire country
   const totalCases = stateTotals.filter(

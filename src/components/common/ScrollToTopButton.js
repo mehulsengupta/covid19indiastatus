@@ -8,6 +8,7 @@ function ScrollToTopButton() {
         StopPosition={150}
         ShowAtPosition={200}
         AnimationDuration={500}
+        style={{ outline: "none" }}
       />
     </div>
   );

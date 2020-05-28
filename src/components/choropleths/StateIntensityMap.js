@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import tableHeader from "../constantvalues/tableHeaders";
-import { getDistrictWise, getZones } from "../../apiUtils/Totals";
 import mapConstants from "../constantvalues/mapConstants";
 import ChoroplethMap from "../common/ChoroplethMap";
 import { getColorRange } from "./getColorRange";
@@ -14,6 +13,8 @@ import CriteriaDropDown from "../common/CriteriaDropDowns";
 import LinearGradient from "./LinearGradient";
 import mapDistrictZones from "../../utils/mapDistrictZones";
 import DailyChangeGraph from "../graphs/DailyChangeGraph";
+import useFetch from "../../customhooks/useFetch";
+import fetchDataTypes from "../constantvalues/fetchDataTypes";
 
 //functional component to show state maps
 function StateIntensityMap(props) {
@@ -47,8 +48,8 @@ function StateIntensityMap(props) {
 
   //hooks
   const [criteria, setCriteria] = useState(tableHeader.CONFIRMED);
-  const [districtTotals, setDistrictTotals] = useState([]);
-  const [zones, setZones] = useState([]);
+  const [districtTotals] = useFetch(fetchDataTypes.DISTRICT);
+  const [zones] = useFetch(fetchDataTypes.ZONE);
   const [displayType, setDisplayType] = useState(mapConstants.DISPLAY_MAP);
   let data = [];
 
@@ -71,16 +72,6 @@ function StateIntensityMap(props) {
       ? setDisplayType(mapConstants.DISPLAY_GRAPH)
       : setDisplayType(mapConstants.DISPLAY_MAP);
   };
-
-  //fetch district data for a selected state
-  useEffect(() => {
-    getDistrictWise().then((data) => setDistrictTotals(data));
-  }, []);
-
-  //fetch zones
-  useEffect(() => {
-    getZones().then((data) => setZones(data));
-  }, []);
 
   //districts selected for a state
   const selectedDistricts = districtTotals.filter(

@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Line, defaults } from "react-chartjs-2";
 
-import {
-  getCountryDailyChanges,
-  getStateDailyChanges,
-} from "../../apiUtils/Totals";
 import { formatNumbersWithComma } from "../../utils/formatNumbersWithComma";
 import tableHeader from "../constantvalues/tableHeaders";
 import cssConstants from "../constantvalues/cssconstants";
 import mapConstants from "../constantvalues/mapConstants";
 import cssconstants from "../constantvalues/cssconstants";
+import fetchDataTypes from "../constantvalues/fetchDataTypes";
+import useFetch from "../../customhooks/useFetch";
 
 //Graph component showing the daily changes
 function DailyChangeGraph(props) {
-  const [dailyChanges, setDailyChanges] = useState([]);
+  const [dailyChanges] = useFetch(
+    props.mapType === mapConstants.MAP_TYPE_COUNTRY
+      ? fetchDataTypes.COUNTRY_DAILY
+      : fetchDataTypes.STATE_DAILY
+  );
   const criteria =
     (props.mapType === mapConstants.MAP_TYPE_COUNTRY
       ? mapConstants.GRAPH_PREFIX
@@ -78,13 +80,6 @@ function DailyChangeGraph(props) {
 
   defaults.global.defaultFontFamily = cssConstants.GRAPH_DEFAULT_FONT_FAMILY;
   defaults.global.defaultFontSize = cssConstants.GRAPH_DEFAULT_FONT_SIZE;
-
-  //get daily updates for graph, nationwide
-  useEffect(() => {
-    props.mapType === mapConstants.MAP_TYPE_COUNTRY
-      ? getCountryDailyChanges().then((data) => setDailyChanges(data))
-      : getStateDailyChanges().then((data) => setDailyChanges(data));
-  }, [props.mapType]);
 
   if (props.mapType === mapConstants.MAP_TYPE_COUNTRY) {
     labels = dailyChanges.map((selectedDay) => selectedDay.date);

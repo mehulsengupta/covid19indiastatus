@@ -23,6 +23,7 @@ endpoints.md
 firebase.json
 .firebaserc
 /.firebase
+live-reload.js
 
 npm-debug.log*
 yarn-debug.log*

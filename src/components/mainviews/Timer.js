@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import TableHeader from "../constantvalues/tableHeaders";
+import tableHeader from "../constantvalues/tableHeaders";
 import { formatDate } from "../../utils/dateUtils";
 
 function Timer(props) {
@@ -21,7 +21,7 @@ function Timer(props) {
               props.darkMode ? "tickingclockdark" : "tickingclocklight"
             }`}
           >
-            {TableHeader.TIME_NOW + " "}
+            {tableHeader.TIME_NOW + " "}
             {dateNow}
           </div>
         </div>

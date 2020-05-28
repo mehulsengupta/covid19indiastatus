@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import { getStateWise } from "../../apiUtils/Totals";
 import TotalCountCode from "../constantvalues/tableHeaders";
 import TotalCasesCount from "../common/TotalCasesCount";
 import useNumberRace from "../../customhooks/useNumberRace";
 import tableHeader from "../constantvalues/tableHeaders";
+import fetchDataTypes from "../constantvalues/fetchDataTypes";
+import useFetch from "../../customhooks/useFetch";
 
 function NationalCount(props) {
   /** States defined */
 
-  const [stateTotals, setStateTotals] = useState([]);
+  //fetching statetotals from custom hook
+  const [stateTotals] = useFetch(fetchDataTypes.STATE);
+
   const [deltaConfirmed, setDeltaConfirmed] = useNumberRace(
     tableHeader.CONFIRMED
   );
@@ -18,11 +21,6 @@ function NationalCount(props) {
     tableHeader.RECOVERED
   );
   const [deltaDeaths, setDeltaDeaths] = useNumberRace(tableHeader.DEATHS);
-
-  /** Fetch data from the API - can be linked to Redux store later on */
-  useEffect(() => {
-    getStateWise().then((data) => setStateTotals(data));
-  }, []);
 
   /** Fetch the total count from the array of states */
   const nationalCount = stateTotals.filter(
@@ -57,7 +55,7 @@ function NationalCount(props) {
       setDeltaRecovered(parseInt(deltarecovered));
       setDeltaDeaths(parseInt(deltadeaths));
     }
-  }, 10);
+  }, 100);
 
   //Component to show national count
   return (

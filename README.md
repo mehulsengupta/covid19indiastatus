@@ -13,7 +13,7 @@ using the figures from a crowd sourced database.
   - Confirmed, active, recovered, death, recovery-rate & death-rate, ~~state-wide zones~~.
   - Light & dark mode.
 
-* ![Website homepage](https://github.com/mehulsengupta/covid19indiastatus/tree/master/public/website-homepage.jpg "Website Homepage")
+* Homepage: ![Website homepage](./public/website-homepage.jpg "Website Homepage")
 
 * My email ID: mehulsengupta20@gmail.com
 

@@ -7,4 +7,6 @@ under the Novel Coronavirus outbreak, using the numbers from a crowd sourced dat
 
 - Link to API (datasource): https://api.covid19india.org/
 
+- MIT License
+
 ---

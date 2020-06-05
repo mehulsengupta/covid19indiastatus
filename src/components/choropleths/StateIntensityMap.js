@@ -11,7 +11,7 @@ import { getRates } from "./getRates";
 import { formatNumbersWithComma } from "../../utils/formatNumbersWithComma";
 import CriteriaDropDown from "../common/CriteriaDropDowns";
 import LinearGradient from "./LinearGradient";
-import mapDistrictZones from "../../utils/mapDistrictZones";
+//import mapDistrictZones from "../../utils/mapDistrictZones";
 import DailyChangeGraph from "../graphs/DailyChangeGraph";
 import useFetch from "../../customhooks/useFetch";
 import fetchDataTypes from "../constantvalues/fetchDataTypes";
@@ -55,7 +55,7 @@ function StateIntensityMap({
   //hooks
   const [criteria, setCriteria] = useState(tableHeader.CONFIRMED);
   const [districtTotals] = useFetch(fetchDataTypes.DISTRICT);
-  const [zones] = useFetch(fetchDataTypes.ZONE);
+  //const [zones] = useFetch(fetchDataTypes.ZONE);
   const [displayType, setDisplayType] = useState(mapConstants.DISPLAY_MAP);
   let data = [];
 
@@ -87,7 +87,7 @@ function StateIntensityMap({
   //setting districts to be mapped for a state (confirmed, active, recovered, death)
   criteria !== tableHeader.RECOVERY_RATE &&
     criteria !== tableHeader.DEATH_RATE &&
-    criteria !== tableHeader.ZONES &&
+    //criteria !== tableHeader.ZONES &&
     selectedDistricts.map((_districtsList) =>
       _districtsList.districtData.map((_district) => {
         const _districtData = {};
@@ -117,22 +117,22 @@ function StateIntensityMap({
   }
 
   //zones
-  if (criteria === tableHeader.ZONES) {
-    mapDistrictZones(selectedDistricts, zones.zones);
-    selectedDistricts.map((_districtsList) =>
-      _districtsList.districtData.map((_district) => {
-        const _districtData = {};
-        Object.assign(_districtData, {
-          id: _district.district,
-          state: _district.district,
-          value: _district.color,
-          criteria,
-        });
-        data.push(_districtData);
-        return data;
-      })
-    );
-  }
+  // if (criteria === tableHeader.ZONES) {
+  //   mapDistrictZones(selectedDistricts, zones.zones);
+  //   selectedDistricts.map((_districtsList) =>
+  //     _districtsList.districtData.map((_district) => {
+  //       const _districtData = {};
+  //       Object.assign(_districtData, {
+  //         id: _district.district,
+  //         state: _district.district,
+  //         value: _district.color,
+  //         criteria,
+  //       });
+  //       data.push(_districtData);
+  //       return data;
+  //     })
+  //   );
+  // }
 
   //state name of state selected
   const stateName = selectedDistricts.map((district) => district.state);
@@ -201,8 +201,8 @@ function StateIntensityMap({
                   {displayType === mapConstants.DISPLAY_MAP &&
                     criteria !== tableHeader.RECOVERY_RATE &&
                     criteria !== tableHeader.DEATH_RATE &&
-                    criteria !== tableHeader.ACTIVE &&
-                    criteria !== tableHeader.ZONES && (
+                    criteria !== tableHeader.ACTIVE && (
+                      // criteria !== tableHeader.ZONES && (
                       <button
                         className="btn btn-primary backbutton"
                         onClick={onGraphButtonClick}
@@ -240,7 +240,7 @@ function StateIntensityMap({
                   ? true
                   : false
               }
-              isZonal={criteria === tableHeader.ZONES ? true : false}
+              isZonal={false} //{criteria === tableHeader.ZONES ? true : false}
             />
           ) : (
             <DailyChangeGraph

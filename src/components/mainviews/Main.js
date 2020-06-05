@@ -5,7 +5,7 @@ import StateTable from "../common/StateTable";
 import IntensityMap from "../choropleths/IntensityMap";
 
 import { sortColumns } from "../../utils/sortColumns";
-import mapDistrictZones from "../../utils/mapDistrictZones";
+//import mapDistrictZones from "../../utils/mapDistrictZones";
 
 import sortTypes from "../constantvalues/sortTypes";
 import tableHeader from "../constantvalues/tableHeaders";
@@ -21,7 +21,7 @@ function Main(props) {
   const [districtTotals] = useFetch(fetchDataTypes.DISTRICT); //hook to store district object with nested statecode
   //and data
 
-  const [zones] = useFetch(fetchDataTypes.ZONE); //hook to store zones nation wide
+  //const [zones] = useFetch(fetchDataTypes.ZONE); //hook to store zones nation wide
 
   const [sortOrder, setSortOrder] = useState({
     flag: sortTypes.INITIAL,
@@ -63,7 +63,7 @@ function Main(props) {
     );
 
     //get zones for a state
-    mapDistrictZones(stateSelected, zones.zones);
+    //mapDistrictZones(stateSelected, zones.zones);
 
     const [selectedState] = stateSelected;
 

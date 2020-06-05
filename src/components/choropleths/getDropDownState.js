@@ -8,6 +8,6 @@ export function getDropDown() {
     tableHeader.DECEASED,
     tableHeader.RECOVERY_RATE,
     tableHeader.DEATH_RATE,
-    tableHeader.ZONES,
+    // tableHeader.ZONES,
   ];
 }

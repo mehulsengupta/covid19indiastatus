@@ -5,9 +5,15 @@ import tableHeader from "../constantvalues/tableHeaders";
 import { formatNumbersWithComma } from "../../utils/formatNumbersWithComma";
 
 //To generate list of districts
-function DistrictTable(props) {
+function DistrictTable({
+  districtTotals,
+  onSort,
+  sortOrder,
+  onDistrictMouseEnter,
+  darkMode,
+}) {
   //styling for dark vs light mode
-  const tableHeaderStyle = props.darkMode ? "dark" : "light";
+  const tableHeaderStyle = darkMode ? "dark" : "light";
 
   return (
     <table className="table table-sm table-hover table-striped">
@@ -16,18 +22,14 @@ function DistrictTable(props) {
           <th
             className={tableHeaderStyle}
             onClick={() =>
-              props.onSort(
-                props.districtTotals,
-                tableHeader.DISTRICT,
-                sortTypes.DISTRICT
-              )
+              onSort(districtTotals, tableHeader.DISTRICT, sortTypes.DISTRICT)
             }
           >
             {tableHeader.DISTRICT}
             <i
               className={
-                props.sortOrder.districtColumn === tableHeader.DISTRICT
-                  ? props.sortOrder.districtIcon
+                sortOrder.districtColumn === tableHeader.DISTRICT
+                  ? sortOrder.districtIcon
                   : ""
               }
             ></i>
@@ -36,18 +38,14 @@ function DistrictTable(props) {
           <th
             className={tableHeaderStyle}
             onClick={() =>
-              props.onSort(
-                props.districtTotals,
-                tableHeader.CONFIRMED,
-                sortTypes.DISTRICT
-              )
+              onSort(districtTotals, tableHeader.CONFIRMED, sortTypes.DISTRICT)
             }
           >
             {tableHeader.CONFIRMED}
             <i
               className={
-                props.sortOrder.districtColumn === tableHeader.CONFIRMED
-                  ? props.sortOrder.districtIcon
+                sortOrder.districtColumn === tableHeader.CONFIRMED
+                  ? sortOrder.districtIcon
                   : ""
               }
             ></i>
@@ -55,18 +53,14 @@ function DistrictTable(props) {
           <th
             className={tableHeaderStyle}
             onClick={() =>
-              props.onSort(
-                props.districtTotals,
-                tableHeader.ACTIVE,
-                sortTypes.DISTRICT
-              )
+              onSort(districtTotals, tableHeader.ACTIVE, sortTypes.DISTRICT)
             }
           >
             {tableHeader.ACTIVE}
             <i
               className={
-                props.sortOrder.districtColumn === tableHeader.ACTIVE
-                  ? props.sortOrder.districtIcon
+                sortOrder.districtColumn === tableHeader.ACTIVE
+                  ? sortOrder.districtIcon
                   : ""
               }
             ></i>
@@ -74,18 +68,14 @@ function DistrictTable(props) {
           <th
             className={tableHeaderStyle}
             onClick={() =>
-              props.onSort(
-                props.districtTotals,
-                tableHeader.RECOVERED,
-                sortTypes.DISTRICT
-              )
+              onSort(districtTotals, tableHeader.RECOVERED, sortTypes.DISTRICT)
             }
           >
             {tableHeader.RECOVERED}
             <i
               className={
-                props.sortOrder.districtColumn === tableHeader.RECOVERED
-                  ? props.sortOrder.districtIcon
+                sortOrder.districtColumn === tableHeader.RECOVERED
+                  ? sortOrder.districtIcon
                   : ""
               }
             ></i>
@@ -93,30 +83,26 @@ function DistrictTable(props) {
           <th
             className={tableHeaderStyle}
             onClick={() =>
-              props.onSort(
-                props.districtTotals,
-                tableHeader.DECEASED,
-                sortTypes.DISTRICT
-              )
+              onSort(districtTotals, tableHeader.DECEASED, sortTypes.DISTRICT)
             }
           >
             {tableHeader.DECEASED}
             <i
               className={
-                props.sortOrder.districtColumn === tableHeader.DECEASED
-                  ? props.sortOrder.districtIcon
+                sortOrder.districtColumn === tableHeader.DECEASED
+                  ? sortOrder.districtIcon
                   : ""
               }
             ></i>
           </th>
         </tr>
       </thead>
-      <tbody className={props.darkMode ? "districtdark" : "districtlight"}>
-        {props.districtTotals.districtData.map((selectedDistrictTotal) => (
+      <tbody className={darkMode ? "districtdark" : "districtlight"}>
+        {districtTotals.districtData.map((selectedDistrictTotal) => (
           <tr
             key={selectedDistrictTotal.district}
             onMouseEnter={() =>
-              props.onDistrictMouseEnter(() => selectedDistrictTotal.district)
+              onDistrictMouseEnter(() => selectedDistrictTotal.district)
             }
           >
             <td className={selectedDistrictTotal.color}>

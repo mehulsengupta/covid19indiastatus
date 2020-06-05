@@ -48,7 +48,7 @@
   background-color: rgba(250, 164, 164, 0.185);
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
-  font-weight: 500;
+  font-weight: lighter;
   color: rgb(51, 50, 49);
 }
 
@@ -67,25 +67,25 @@
 /** CSS to show confirmed in red (state level) */
 .table > tbody.light > tr > td > div > .deltaconfirmed {
   color: red;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** CSS to show active in orange (state level) */
 .table > tbody.light > tr > td > div > .deltaactive {
   color: orange;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** CSS to show recovered in green (state level) */
 .table > tbody.light > tr > td > div > .deltarecovered {
   color: green;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** CSS to show deaths in gray (state level) */
 .table > tbody.light > tr > td > div > .deltadeaths {
   color: gray;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** State level styling end ************************************************************************************/
@@ -95,7 +95,7 @@
 /** District Table body */
 .table > .districtlight {
   background-color: rgb(225, 225, 247);
-  font-weight: 200;
+  font-weight: lighter;
 }
 
 /** Bordering district table rows */
@@ -112,25 +112,25 @@ tbody.districtlight > tr:hover {
 /** CSS to show confirmed in red (district level) */
 .table > .districtlight > tr > td > div > .deltaconfirmeddistrict {
   color: red;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** CSS to show active in orange (district level) */
 .table > .districtlight > tr > td > div > .deltaactivedistrict {
   color: orange;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** CSS to show recovered in green (district level) */
 .table > .districtlight > tr > td > div > .deltarecovereddistrict {
   color: green;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** CSS to show deaths in gray (district level) */
 .table > .districtlight > tr > td > div > .deltadeceaseddistrict {
   color: gray;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** To align actual numbers to right for proper visibility (district level) */
@@ -170,14 +170,14 @@ tbody.districtlight > tr:hover {
   color: rgb(125, 173, 247);
   border: 5px solid white;
   border-radius: 10px;
-  font-size: 20px;
+  font-size: larger;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 .totalconfirmed {
   color: rgb(255, 143, 143);
-  font-size: 25px;
+  font-size: x-large;
   font-weight: bold;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -185,7 +185,7 @@ tbody.districtlight > tr:hover {
 
 .totalactive {
   color: rgb(253, 191, 97);
-  font-size: 25px;
+  font-size: x-large;
   font-weight: bold;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -193,7 +193,7 @@ tbody.districtlight > tr:hover {
 
 .totalrecovered {
   color: rgb(136, 253, 136);
-  font-size: 25px;
+  font-size: x-large;
   font-weight: bold;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -201,7 +201,7 @@ tbody.districtlight > tr:hover {
 
 .totaldeaths {
   color: rgb(158, 157, 157);
-  font-size: 25px;
+  font-size: x-large;
   font-weight: bold;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -209,26 +209,26 @@ tbody.districtlight > tr:hover {
 
 .totaldeltaconfirmed {
   color: red;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: large;
+  font-weight: bold;
 }
 
 .totaldeltarecovered {
   color: green;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: large;
+  font-weight: bold;
 }
 
 .totaldeltaactive {
   color: orange;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: large;
+  font-weight: bold;
 }
 
 .totaldeltadeaths {
   color: gray;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: large;
+  font-weight: bold;
 }
 /** Total count CSS end **************************************************************************************/
 
@@ -239,11 +239,11 @@ tbody.districtlight > tr:hover {
 
 /** Confirmed List */
 #dropdown-basic-button-confirmed {
-  font-size: 20px;
-  width: 175px;
+  font-size: large;
+  width: 170px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: 500;
+  font-weight: normal;
   color: rgb(250, 49, 49);
   background-color: rgb(252, 208, 208);
   border-radius: 10px;
@@ -262,11 +262,11 @@ tbody.districtlight > tr:hover {
 
 /** Active List */
 #dropdown-basic-button-active {
-  font-size: 20px;
-  width: 175px;
+  font-size: large;
+  width: 170px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: 500;
+  font-weight: normal;
   color: rgb(250, 129, 49);
   background-color: rgb(248, 220, 182);
   border-radius: 10px;
@@ -288,11 +288,11 @@ tbody.districtlight > tr:hover {
 /** Recovered/Recovery Rate List */
 #dropdown-basic-button-recovered,
 #dropdown-basic-button-recovery_rate {
-  font-size: 20px;
-  width: 175px;
+  font-size: large;
+  width: 170px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: 500;
+  font-weight: normal;
   color: rgb(57, 167, 67);
   background-color: rgb(198, 253, 197);
   border-radius: 10px;
@@ -316,11 +316,11 @@ tbody.districtlight > tr:hover {
 /** Death/Death Rate List */
 #dropdown-basic-button-deaths,
 #dropdown-basic-button-death_rate {
-  font-size: 20px;
-  width: 175px;
+  font-size: large;
+  width: 170px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: 500;
+  font-weight: normal;
   color: rgb(61, 61, 63);
   background-color: rgb(199, 199, 199);
   border-radius: 10px;
@@ -343,11 +343,11 @@ tbody.districtlight > tr:hover {
 
 /** Deceased List */
 #dropdown-basic-button-deceased {
-  font-size: 20px;
-  width: 175px;
+  font-size: large;
+  width: 170px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: 500;
+  font-weight: normal;
   color: rgb(61, 61, 63);
   background-color: rgb(199, 199, 199);
   border-radius: 10px;
@@ -368,11 +368,11 @@ tbody.districtlight > tr:hover {
 
 /** Zonal List */
 #dropdown-basic-button-zones {
-  font-size: 20px;
-  width: 175px;
+  font-size: large;
+  width: 170px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: 500;
+  font-weight: normal;
   color: #0c6611;
   background-color: rgb(255, 210, 143);
   border-radius: 10px;
@@ -393,11 +393,11 @@ tbody.districtlight > tr:hover {
 
 /** Menu items */
 #dropdownmenu {
-  font-size: 20px;
-  width: 175px;
+  font-size: large;
+  width: 170px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: 500;
+  font-weight: normal;
   color: rgb(18, 18, 19);
 }
 
@@ -419,7 +419,7 @@ tbody.districtlight > tr:hover {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: blue;
   font-weight: bold;
-  font-size: 15px;
+  font-size: inherit;
 }
 
 /** Used in gradient display */
@@ -435,8 +435,8 @@ tbody.districtlight > tr:hover {
   color: #040563;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: 500;
-  font-size: 17px;
+  font-weight: normal;
+  font-size: large;
   border-radius: 12px;
   transition: all 750ms;
 }
@@ -467,7 +467,7 @@ tbody.districtlight > tr:hover {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #040563;
-  font-weight: 600;
+  font-weight: bold;
   font-size: large;
 }
 
@@ -486,14 +486,14 @@ tbody.districtlight > tr:hover {
   color: rgb(125, 173, 247);
   border: 5px solid white;
   border-radius: 10px;
-  font-size: 20px;
+  font-size: medium;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-weight: 400;
+  font-weight: bold;
 }
 
 .statetotalconfirmed {
   color: rgb(255, 143, 143);
-  font-size: 18px;
+  font-size: large;
   font-weight: bold;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -501,7 +501,7 @@ tbody.districtlight > tr:hover {
 
 .statetotalrecovered {
   color: rgb(136, 253, 136);
-  font-size: 18px;
+  font-size: large;
   font-weight: bold;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -509,7 +509,7 @@ tbody.districtlight > tr:hover {
 
 .statetotaldeaths {
   color: rgb(158, 157, 157);
-  font-size: 18px;
+  font-size: large;
   font-weight: bold;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -518,7 +518,7 @@ tbody.districtlight > tr:hover {
 
 /** Error Handling Start *************************************************************************************/
 .errorheading {
-  font-size: 100px;
+  font-size: xx-large;
   text-align: center;
   background-color: rgb(255, 204, 204);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -528,7 +528,7 @@ tbody.districtlight > tr:hover {
 }
 
 .errorbody {
-  font-size: 25px;
+  font-size: x-large;
   text-align: center;
   background-color: rgb(255, 244, 230);
   color: #040650;
@@ -603,8 +603,55 @@ tbody.districtlight > tr:hover {
 }
 
 .toggleicondiv {
-  margin-right: 0;
-  margin-left: auto;
+  float: right;
+}
+
+/** API link div styling on main page-light mode*/
+.apidivlight {
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: small;
+  font-weight: bold;
+  background-color: rgb(241, 241, 234);
+  border: 2px solid rgb(241, 241, 234);
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.apidivlight:hover {
+  background-color: #cecece;
+  border: 5px solid #cecece;
+}
+
+/** Link styling */
+.datasourcelinklight {
+  color: rgb(41, 76, 129);
+  text-decoration: none;
+}
+
+.datasourcelinklight:hover {
+  color: #26887b;
+  text-decoration: none;
+}
+
+/** About Page body styling - light mode */
+.aboutlight {
+  text-align: center;
+  background-color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #040650;
+  height: 100%;
+  width: 100%;
+}
+
+/** About Page components styling*/
+.aboutques {
+  width: 50%;
+  text-align: left;
+  margin: auto;
 }
 
 /** LIGHT MODE + GENERIC CSS END *****************************************************************************/
@@ -651,7 +698,7 @@ tbody.districtlight > tr:hover {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #d3d3d3;
-  font-weight: 600;
+  font-weight: bold;
   font-size: large;
 }
 
@@ -670,9 +717,9 @@ tbody.districtlight > tr:hover {
   color: rgb(125, 173, 247);
   border: 5px solid rgb(41, 40, 40);
   border-radius: 10px;
-  font-size: 20px;
+  font-size: larger;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-weight: 600;
+  font-weight: bold;
 }
 
 /** State & District Table Header color and font-color - Overriding bootstrap classes - dark mode ************/
@@ -696,7 +743,7 @@ tbody.districtlight > tr:hover {
   background-color: rgba(250, 164, 164, 0.185);
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
-  font-weight: 500;
+  font-weight: lighter;
   color: rgb(190, 190, 190);
 }
 
@@ -715,25 +762,25 @@ tbody.districtlight > tr:hover {
 /** CSS to show confirmed in red (state level) */
 .table > tbody.dark > tr > td > div > .deltaconfirmed {
   color: red;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** CSS to show active in orange (state level) */
 .table > tbody.dark > tr > td > div > .deltaactive {
   color: orange;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** CSS to show recovered in green (state level) */
 .table > tbody.dark > tr > td > div > .deltarecovered {
   color: green;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** CSS to show deaths in gray (state level) */
 .table > tbody.dark > tr > td > div > .deltadeaths {
   color: gray;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** State level styling end ************************************************************************************/
@@ -743,7 +790,6 @@ tbody.districtlight > tr:hover {
 /** District Table body */
 .table > .districtdark {
   background-color: rgb(80, 80, 80);
-  font-weight: 200;
   color: rgb(190, 190, 190);
 }
 
@@ -761,25 +807,25 @@ tbody.districtdark > tr:hover {
 /** CSS to show confirmed in red (district level) */
 .table > .districtdark > tr > td > div > .deltaconfirmeddistrict {
   color: red;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** CSS to show active in orange (district level) */
 .table > .districtdark > tr > td > div > .deltaactivedistrict {
   color: orange;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** CSS to show recovered in green (district level) */
 .table > .districtdark > tr > td > div > .deltarecovereddistrict {
   color: green;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** CSS to show deaths in gray (district level) */
 .table > .districtdark > tr > td > div > .deltadeceaseddistrict {
   color: gray;
-  font-size: 12px;
+  font-size: small;
 }
 
 /** To align actual numbers to right for proper visibility (district level) */
@@ -815,9 +861,9 @@ tbody.districtdark > tr:hover {
   color: rgb(125, 173, 247);
   border: 5px solid rgb(41, 40, 40);
   border-radius: 10px;
-  font-size: 20px;
+  font-size: medium;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-weight: 400;
+  font-weight: bold;
 }
 
 /** State heading dark mode */
@@ -838,14 +884,54 @@ tbody.districtdark > tr:hover {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: rgb(194, 192, 192);
   font-weight: bold;
-  font-size: 15px;
+  font-size: inherit;
+}
+
+/** API link div styling on main page-dark mode*/
+.apidivdark {
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: small;
+  font-weight: bold;
+  background-color: #5a5959;
+  border: 2px solid #5a5959;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.apidivdark:hover {
+  background-color: #808080;
+  border: 5px solid #808080;
+}
+
+/** API Link styling dark mode */
+.datasourcelinkdark {
+  color: #a4a4b6;
+  text-decoration: none;
+}
+
+.datasourcelinkdark:hover {
+  color: #9ef3e8;
+  text-decoration: none;
+}
+
+/** About page body dark mode */
+.aboutdark {
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: rgb(194, 192, 192);
+  background-color: rgb(41, 40, 40);
+  height: 100%;
+  width: 100%;
 }
 
 /** DARK MODE CSS END ****************************************************************************************/
 
 /* div {
-  /* background-color: #276827; */
-/* border: 2px solid black;
-}*/
+  border: 2px solid black;
+} */
 
 /** CSS END FOR PROJECT */

@@ -65,8 +65,10 @@ function Main(props) {
     //get zones for a state
     mapDistrictZones(stateSelected, zones.zones);
 
+    const [selectedState] = stateSelected;
+
     sortColumns(
-      stateSelected[0].districtData,
+      selectedState.districtData,
       sortTypes.DESCENDING,
       tableHeader.CONFIRMED
     ); //sort district arrays to show default order of highest confirmed cases descending
@@ -85,8 +87,8 @@ function Main(props) {
     });
 
     setSelectedStateDistricts({
-      statecode: stateSelected[0].statecode,
-      districtData: stateSelected[0].districtData,
+      statecode: selectedState.statecode,
+      districtData: selectedState.districtData,
     });
   };
 

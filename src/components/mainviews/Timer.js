@@ -25,18 +25,6 @@ function Timer(props) {
             {dateNow}
           </div>
         </div>
-        <div>
-          <div className="toggleicondiv col-lg">
-            <button
-              className={`${
-                props.darkMode ? "toggleicondark" : "toggleiconlight"
-              }`}
-              onClick={props.toggleMode}
-            >
-              <i className={props.darkMode ? "fas fa-sun" : "fas fa-moon"}></i>
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );

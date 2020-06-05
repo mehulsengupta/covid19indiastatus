@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import message from "../constantvalues/tableHeaders";
 
@@ -13,9 +14,9 @@ function ErrorUI() {
       </div>
       <div className="row">
         <div className="col-lg reloadbutton">
-          <a className="btn btn-primary" href="/">
+          <Link to="/" className="btn btn-primary">
             {"Try Again"}
-          </a>
+          </Link>
         </div>
       </div>
     </div>

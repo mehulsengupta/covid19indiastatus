@@ -7,6 +7,7 @@ import Header from "./components/headerfooter/Header";
 import NationalCount from "./components/mainviews/NationalCount";
 import Timer from "./components/mainviews/Timer";
 import Footer from "./components/headerfooter/Footer";
+import Acknowledgement from "./components/mainviews/Acknowledgement";
 import LoadingIndicator from "./components/loader/LoadingIndicator";
 import useDarkMode from "./customhooks/useDarkMode";
 
@@ -18,9 +19,10 @@ function App() {
     <LoadingOverlay active={promiseInProgress} spinner={<LoadingIndicator />}>
       <div className={darkMode ? "darkbody" : "lightbody"}>
         <Header darkMode={darkMode} />
-        <Timer toggleMode={toggleDarkMode} darkMode={darkMode} />
-        <NationalCount darkMode={darkMode} />
+        <Timer darkMode={darkMode} />
+        <NationalCount toggleMode={toggleDarkMode} darkMode={darkMode} />
         <Main darkMode={darkMode} />
+        <Acknowledgement darkMode={darkMode} />
         <Footer />
       </div>
     </LoadingOverlay>

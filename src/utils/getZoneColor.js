@@ -1,6 +1,9 @@
 export function getZoneColor(zonesList, _district) {
-  const color = zonesList.filter(
+  const zoneColor = zonesList.filter(
     (zone) => zone.district === _district.district
   );
-  return typeof color[0] === "undefined" ? "" : color[0].zone;
+
+  const [color] = zoneColor;
+
+  return typeof color === "undefined" ? "" : color.zone;
 }

@@ -1,4 +1,4 @@
-import url from "../components/constantvalues/url";
+import url from "../components/constantvalues/endpoints";
 import { getDataFromApi } from "./getDataFromApi";
 
 //function to get data from specific APIs. Polling can be added for periodic checks using Redux

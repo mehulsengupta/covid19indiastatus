@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 function PageNotFound() {
   const [timer, setTimer] = useState(5);
@@ -27,9 +27,9 @@ function PageNotFound() {
           </div>
           <div className="row">
             <div className="col-lg reloadbutton">
-              <a className="btn btn-primary" href="/">
+              <Link to="/" className="btn btn-primary">
                 {`Redirecting in ${timer} second(s). Click to be redirected immediately`}
-              </a>
+              </Link>
             </div>
           </div>
         </div>

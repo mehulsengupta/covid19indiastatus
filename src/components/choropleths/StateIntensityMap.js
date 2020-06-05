@@ -17,7 +17,13 @@ import useFetch from "../../customhooks/useFetch";
 import fetchDataTypes from "../constantvalues/fetchDataTypes";
 
 //functional component to show state maps
-function StateIntensityMap(props) {
+function StateIntensityMap({
+  selectedState,
+  stateTotals,
+  hoverDistrict,
+  onStateClick,
+  darkMode,
+}) {
   //get appropriate topo json file
   let STATE_TOPO_JSON = "";
   let stateUnassigned = false;
@@ -25,26 +31,26 @@ function StateIntensityMap(props) {
   //error handling if topo json fails to load
   try {
     STATE_TOPO_JSON = require("../../topoJson/states/" +
-      props.selectedState +
+      selectedState +
       ".json");
   } catch (error) {
     stateUnassigned = true;
   }
 
   //get projection values specific
-  const projection = mapConstants.MAP_PROJECTION_STATE.specifics.filter(
-    (specific) => specific.statecode === props.selectedState
+  const [projection] = mapConstants.MAP_PROJECTION_STATE.specifics.filter(
+    (specific) => specific.statecode === selectedState
   );
   const MAP_PROJECTION = !stateUnassigned
     ? {
-        scale: projection[0].scale, //to increase/decrease map size
-        center: projection[0].center,
+        scale: projection.scale, //to increase/decrease map size
+        center: projection.center,
       }
     : "";
   const DEFAULT_COLOR = mapConstants.DEFAULT_COLOR;
 
   //styling specific for dark mode vs light mode
-  const stateCountStyle = props.darkMode ? "statecountdark" : "statecountlight";
+  const stateCountStyle = darkMode ? "statecountdark" : "statecountlight";
 
   //hooks
   const [criteria, setCriteria] = useState(tableHeader.CONFIRMED);
@@ -75,7 +81,7 @@ function StateIntensityMap(props) {
 
   //districts selected for a state
   const selectedDistricts = districtTotals.filter(
-    (state) => state.statecode === props.selectedState
+    (state) => state.statecode === selectedState
   );
 
   //setting districts to be mapped for a state (confirmed, active, recovered, death)
@@ -133,7 +139,7 @@ function StateIntensityMap(props) {
 
   return (
     <>
-      {props.stateTotals.map((district) => (
+      {stateTotals.map((district) => (
         <div className="row" key={district.statecode}>
           <div className={`col ${stateCountStyle} text-center`}>
             <div>{tableHeader.CONFIRMED}</div>
@@ -170,7 +176,7 @@ function StateIntensityMap(props) {
                 <LinearGradient
                   data={getGradientData(data, COLOR_RANGE)}
                   criteria={criteria}
-                  darkMode={props.darkMode}
+                  darkMode={darkMode}
                 />
               </div>
             )}
@@ -179,16 +185,14 @@ function StateIntensityMap(props) {
             <div className="col-md">
               <div className="samelinedivalign">
                 <div>
-                  <h4
-                    className={props.darkMode ? "headingdark" : "headinglight"}
-                  >
+                  <h4 className={darkMode ? "headingdark" : "headinglight"}>
                     {stateName}
                   </h4>
                 </div>
                 <div className="backbuttondiv">
                   <button
                     className="btn btn-primary backbutton"
-                    onClick={() => props.onStateClick("")}
+                    onClick={() => onStateClick("")}
                   >
                     {mapConstants.BACK_BUTTON}
                   </button>
@@ -224,11 +228,11 @@ function StateIntensityMap(props) {
               TOPO_JSON={STATE_TOPO_JSON}
               MAP_PROJECTION={MAP_PROJECTION}
               DEFAULT_COLOR={DEFAULT_COLOR}
-              totalCases={props.stateTotals}
+              totalCases={stateTotals}
               data={data}
               COLOR_RANGE={COLOR_RANGE}
-              hoverDistrict={props.hoverDistrict}
-              onStateClick={props.onStateClick}
+              hoverDistrict={hoverDistrict}
+              onStateClick={onStateClick}
               type={mapConstants.MAP_TYPE_STATE}
               isRate={
                 criteria === tableHeader.RECOVERY_RATE ||
@@ -242,8 +246,8 @@ function StateIntensityMap(props) {
             <DailyChangeGraph
               criteria={criteria}
               mapType={mapConstants.MAP_TYPE_STATE}
-              statecode={props.selectedState}
-              darkMode={props.darkMode}
+              statecode={selectedState}
+              darkMode={darkMode}
             />
           )}
         </>
@@ -251,7 +255,7 @@ function StateIntensityMap(props) {
         <div className="backbuttondiv">
           <button
             className="btn btn-primary backbutton"
-            onClick={() => props.onStateClick("")}
+            onClick={() => onStateClick("")}
           >
             {mapConstants.BACK_BUTTON}
           </button>

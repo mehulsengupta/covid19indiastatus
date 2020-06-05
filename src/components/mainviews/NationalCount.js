@@ -23,21 +23,23 @@ function NationalCount(props) {
   const [deltaDeaths, setDeltaDeaths] = useNumberRace(tableHeader.DEATHS);
 
   /** Fetch the total count from the array of states */
-  const nationalCount = stateTotals.filter(
+  const nationalTotalCount = stateTotals.filter(
     (state) =>
       //typeof state !== "undefined" &&
       state.statecode === TotalCountCode.NATIONALCOUNT
   );
 
+  const [nationalCount] = nationalTotalCount;
+
   /**  Get the delta data - to prevent pass through of undefined value  */
   const deltaconfirmed =
-    nationalCount.length !== 0 ? nationalCount[0].deltaconfirmed : false;
+    typeof nationalCount !== "undefined" ? nationalCount.deltaconfirmed : null;
 
   const deltarecovered =
-    nationalCount.length !== 0 ? nationalCount[0].deltarecovered : false;
+    typeof nationalCount !== "undefined" ? nationalCount.deltarecovered : null;
 
   const deltadeaths =
-    nationalCount.length !== 0 ? nationalCount[0].deltadeaths : false;
+    typeof nationalCount !== "undefined" ? nationalCount.deltadeaths : null;
 
   const deltaactive = deltaconfirmed - deltarecovered - deltadeaths;
 
@@ -58,11 +60,13 @@ function NationalCount(props) {
   }, 100);
 
   //Component to show national count
-  return (
+  return deltaconfirmed === null && typeof nationalCount === "undefined" ? (
+    <></>
+  ) : (
     <TotalCasesCount
+      nationalCount={nationalCount}
       toggleMode={props.toggleMode}
       darkMode={props.darkMode}
-      nationalCount={nationalCount}
       deltaConfirmed={deltaConfirmed}
       deltaRecovered={deltaRecovered}
       deltaDeaths={deltaDeaths}

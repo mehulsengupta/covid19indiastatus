@@ -17,4 +17,13 @@ export default {
   ERROR_HEADING: "Oops! There was an error.",
   ERROR_MESSAGE:
     "Check your internet connection and try again. If the issue persists, contact the site owner.",
+  SIKKIM: "Sikkim",
+  SIKKIM_CODE: "SK",
+  API_HOME_PAGE_LINK: "https://api.covid19india.org/",
+  DATASOURCE: "DATASOURCE (Crowd-Sourced Database)",
+  ABOUT: "About",
+  GITHUB_REPO_LINK: "https://github.com/mehulsengupta/covid19indiastatus",
+  GITHUB_REPO: "Github",
+  EMAIL_ME: "mehulsengupta20@gmail.com",
+  CONTACT: "Contact",
 };

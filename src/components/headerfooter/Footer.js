@@ -4,19 +4,8 @@ import React from "react";
 export default function Footer() {
   return (
     <>
-      <div className="footer">
-        <a
-          href="https://github.com/mehulsengupta/covid19indiastatus"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i className="fab fa-github fa-3x"></i>
-        </a>
-      </div>
-
       <footer className="blockquote-footer footer">
-        This website has been designed by Mehul Sengupta . &copy;2020 All rights
-        reserved.
+        This website has been designed by Mehul Sengupta.
       </footer>
     </>
   );

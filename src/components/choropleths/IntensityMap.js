@@ -26,7 +26,13 @@ const MAP_PROJECTION = mapConstants.MAP_PROJECTION;
 const DEFAULT_COLOR = mapConstants.DEFAULT_COLOR;
 
 //Component
-function IntensityMap(props) {
+function IntensityMap({
+  hoverState,
+  selectedStateDistricts,
+  hoverDistrict,
+  onStateClick,
+  darkMode,
+}) {
   const [criteria, setCriteria] = useState(tableHeader.CONFIRMED);
   const [stateTotals] = useFetch(fetchDataTypes.STATE);
   const [displayType, setDisplayType] = useState(mapConstants.DISPLAY_MAP);
@@ -34,7 +40,7 @@ function IntensityMap(props) {
   const { promiseInProgress } = usePromiseTracker(); // destructuring - returns an object with named property
 
   //styling for dark vs light mode
-  const headingStyle = props.darkMode ? "headingdark" : "headinglight";
+  const headingStyle = darkMode ? "headingdark" : "headinglight";
 
   //dropdown menus for country map against country graph
   const dropDownMenu =
@@ -99,24 +105,24 @@ function IntensityMap(props) {
         {/* for states being selected - hide country map and show state map based on state selected */}
 
         <div className="container-fluid mapdropdown">
-          {props.selectedStateDistricts !== "" && (
+          {selectedStateDistricts !== "" && (
             <div className="row">
               <div className="col-lg">
                 <StateIntensityMap
-                  selectedState={props.selectedStateDistricts}
+                  selectedState={selectedStateDistricts}
                   stateTotals={onlyStates.filter(
-                    (state) => state.statecode === props.selectedStateDistricts
+                    (state) => state.statecode === selectedStateDistricts
                   )}
-                  hoverDistrict={props.hoverDistrict}
-                  onStateClick={props.onStateClick}
-                  darkMode={props.darkMode}
+                  hoverDistrict={hoverDistrict}
+                  onStateClick={onStateClick}
+                  darkMode={darkMode}
                 />
               </div>
             </div>
           )}
 
           {/* show country graph */}
-          {props.selectedStateDistricts === "" &&
+          {selectedStateDistricts === "" &&
             displayType === mapConstants.DISPLAY_GRAPH && (
               <>
                 <div className="row">
@@ -149,7 +155,7 @@ function IntensityMap(props) {
                     <DailyChangeGraph
                       criteria={criteria}
                       mapType={mapConstants.MAP_TYPE_COUNTRY}
-                      darkMode={props.darkMode}
+                      darkMode={darkMode}
                     />
                   </div>
                 </div>
@@ -157,7 +163,7 @@ function IntensityMap(props) {
             )}
 
           {/* show country map */}
-          {props.selectedStateDistricts === "" &&
+          {selectedStateDistricts === "" &&
             displayType === mapConstants.DISPLAY_MAP && (
               <>
                 <div className="row">
@@ -171,7 +177,7 @@ function IntensityMap(props) {
                   <div className="col-md">
                     <LinearGradient
                       data={getGradientData(data, COLOR_RANGE)}
-                      darkMode={props.darkMode}
+                      darkMode={darkMode}
                     />
                   </div>
                 </div>
@@ -205,9 +211,9 @@ function IntensityMap(props) {
                       totalCases={totalCases}
                       data={data}
                       COLOR_RANGE={COLOR_RANGE}
-                      hoverState={props.hoverState}
+                      hoverState={hoverState}
                       type={mapConstants.MAP_TYPE_COUNTRY}
-                      onStateClick={props.onStateClick}
+                      onStateClick={onStateClick}
                       isRate={
                         criteria === tableHeader.RECOVERY_RATE ||
                         criteria === tableHeader.DEATH_RATE

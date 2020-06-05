@@ -10,9 +10,19 @@ import { formatNumbersWithComma } from "../../utils/formatNumbersWithComma";
 import DistrictTable from "./DistrictTable";
 
 //To generate list of states
-function StateTable(props) {
+function StateTable({
+  stateTotals,
+  onClick,
+  onMouseEnter,
+  onDistrictMouseEnter,
+  districtTotals,
+  isExpanded,
+  onSort,
+  sortOrder,
+  darkMode,
+}) {
   //styling for dark mode vs light mode
-  const tableHeaderStyle = props.darkMode ? "dark" : "light";
+  const tableHeaderStyle = darkMode ? "dark" : "light";
 
   return (
     <>
@@ -22,22 +32,18 @@ function StateTable(props) {
             <th
               className={tableHeaderStyle}
               onClick={() =>
-                props.onSort(
-                  props.stateTotals,
-                  tableHeader.STATE,
-                  sortTypes.STATE
-                )
+                onSort(stateTotals, tableHeader.STATE, sortTypes.STATE)
               }
             >
               {tableHeader.STATE + " and " + tableHeader.UT}
               <i
                 className={
-                  props.sortOrder.table === sortTypes.STATE
-                    ? props.sortOrder.stateColumn === tableHeader.STATE
-                      ? props.sortOrder.stateIcon
+                  sortOrder.table === sortTypes.STATE
+                    ? sortOrder.stateColumn === tableHeader.STATE
+                      ? sortOrder.stateIcon
                       : ""
-                    : props.sortOrder.stateColumn === tableHeader.STATE
-                    ? props.sortOrder.stateIcon
+                    : sortOrder.stateColumn === tableHeader.STATE
+                    ? sortOrder.stateIcon
                     : ""
                 }
               ></i>
@@ -45,22 +51,18 @@ function StateTable(props) {
             <th
               className={tableHeaderStyle}
               onClick={() =>
-                props.onSort(
-                  props.stateTotals,
-                  tableHeader.CONFIRMED,
-                  sortTypes.STATE
-                )
+                onSort(stateTotals, tableHeader.CONFIRMED, sortTypes.STATE)
               }
             >
               {tableHeader.CONFIRMED}
               <i
                 className={
-                  props.sortOrder.table === sortTypes.STATE
-                    ? props.sortOrder.stateColumn === tableHeader.CONFIRMED
-                      ? props.sortOrder.stateIcon
+                  sortOrder.table === sortTypes.STATE
+                    ? sortOrder.stateColumn === tableHeader.CONFIRMED
+                      ? sortOrder.stateIcon
                       : ""
-                    : props.sortOrder.stateColumn === tableHeader.CONFIRMED
-                    ? props.sortOrder.stateIcon
+                    : sortOrder.stateColumn === tableHeader.CONFIRMED
+                    ? sortOrder.stateIcon
                     : ""
                 }
               ></i>
@@ -68,22 +70,18 @@ function StateTable(props) {
             <th
               className={tableHeaderStyle}
               onClick={() =>
-                props.onSort(
-                  props.stateTotals,
-                  tableHeader.ACTIVE,
-                  sortTypes.STATE
-                )
+                onSort(stateTotals, tableHeader.ACTIVE, sortTypes.STATE)
               }
             >
               {tableHeader.ACTIVE}
               <i
                 className={
-                  props.sortOrder.table === sortTypes.STATE
-                    ? props.sortOrder.stateColumn === tableHeader.ACTIVE
-                      ? props.sortOrder.stateIcon
+                  sortOrder.table === sortTypes.STATE
+                    ? sortOrder.stateColumn === tableHeader.ACTIVE
+                      ? sortOrder.stateIcon
                       : ""
-                    : props.sortOrder.stateColumn === tableHeader.ACTIVE
-                    ? props.sortOrder.stateIcon
+                    : sortOrder.stateColumn === tableHeader.ACTIVE
+                    ? sortOrder.stateIcon
                     : ""
                 }
               ></i>
@@ -91,22 +89,18 @@ function StateTable(props) {
             <th
               className={tableHeaderStyle}
               onClick={() =>
-                props.onSort(
-                  props.stateTotals,
-                  tableHeader.RECOVERED,
-                  sortTypes.STATE
-                )
+                onSort(stateTotals, tableHeader.RECOVERED, sortTypes.STATE)
               }
             >
               {tableHeader.RECOVERED}
               <i
                 className={
-                  props.sortOrder.table === sortTypes.STATE
-                    ? props.sortOrder.stateColumn === tableHeader.RECOVERED
-                      ? props.sortOrder.stateIcon
+                  sortOrder.table === sortTypes.STATE
+                    ? sortOrder.stateColumn === tableHeader.RECOVERED
+                      ? sortOrder.stateIcon
                       : ""
-                    : props.sortOrder.stateColumn === tableHeader.RECOVERED
-                    ? props.sortOrder.stateIcon
+                    : sortOrder.stateColumn === tableHeader.RECOVERED
+                    ? sortOrder.stateIcon
                     : ""
                 }
               ></i>
@@ -114,22 +108,18 @@ function StateTable(props) {
             <th
               className={tableHeaderStyle}
               onClick={() =>
-                props.onSort(
-                  props.stateTotals,
-                  tableHeader.DEATHS,
-                  sortTypes.STATE
-                )
+                onSort(stateTotals, tableHeader.DEATHS, sortTypes.STATE)
               }
             >
               {tableHeader.DEATHS + "   "}
               <i
                 className={
-                  props.sortOrder.table === sortTypes.STATE
-                    ? props.sortOrder.stateColumn === tableHeader.DEATHS
-                      ? props.sortOrder.stateIcon
+                  sortOrder.table === sortTypes.STATE
+                    ? sortOrder.stateColumn === tableHeader.DEATHS
+                      ? sortOrder.stateIcon
                       : ""
-                    : props.sortOrder.stateColumn === tableHeader.DEATHS
-                    ? props.sortOrder.stateIcon
+                    : sortOrder.stateColumn === tableHeader.DEATHS
+                    ? sortOrder.stateIcon
                     : ""
                 }
               ></i>
@@ -137,33 +127,30 @@ function StateTable(props) {
           </tr>
         </thead>
         <tbody className={tableHeaderStyle}>
-          {props.stateTotals.map((selectedStateTotal) => (
+          {stateTotals.map((selectedStateTotal) => (
             <React.Fragment key={selectedStateTotal.statecode + "FragmentKey"}>
               <tr
                 style={{
                   color:
-                    selectedStateTotal.statecode ===
-                    props.districtTotals.statecode
+                    selectedStateTotal.statecode === districtTotals.statecode
                       ? cssConstants.selectedStateFontColor
                       : null,
                   backgroundColor:
-                    selectedStateTotal.statecode ===
-                    props.districtTotals.statecode
+                    selectedStateTotal.statecode === districtTotals.statecode
                       ? cssConstants.selectedStateBgColor
                       : null,
                 }}
                 key={selectedStateTotal.statecode}
-                onClick={() => props.onClick(selectedStateTotal.statecode)}
+                onClick={() => onClick(selectedStateTotal.statecode)}
                 onMouseEnter={() =>
-                  props.onMouseEnter(() => selectedStateTotal.statecode)
+                  onMouseEnter(() => selectedStateTotal.statecode)
                 }
               >
                 <td className="">
                   <i
                     className={
-                      props.isExpanded &&
-                      selectedStateTotal.statecode ===
-                        props.districtTotals.statecode
+                      isExpanded &&
+                      selectedStateTotal.statecode === districtTotals.statecode
                         ? sortTypes.EXPANDEDICON
                         : sortTypes.COLLAPSEDICON
                     }
@@ -245,27 +232,26 @@ function StateTable(props) {
                 </td>
               </tr>
 
-              {props.isExpanded &&
-                selectedStateTotal.statecode ===
-                  props.districtTotals.statecode && (
+              {isExpanded &&
+                selectedStateTotal.statecode === districtTotals.statecode && (
                   <tr className="">
                     <td
                       colSpan="5"
                       align="center"
                       className={
-                        props.darkMode ? "districtdivdark" : "districtdivlight"
+                        darkMode ? "districtdivdark" : "districtdivlight"
                       }
                     >
                       {" "}
                       <SlideDown className="districtsslidedown">
                         <DistrictTable
-                          districtTotals={props.districtTotals}
-                          onSort={props.onSort}
-                          sortOrder={Object.assign(props.sortOrder, {
+                          districtTotals={districtTotals}
+                          onSort={onSort}
+                          sortOrder={Object.assign(sortOrder, {
                             table: sortTypes.DISTRICT,
                           })}
-                          onDistrictMouseEnter={props.onDistrictMouseEnter}
-                          darkMode={props.darkMode}
+                          onDistrictMouseEnter={onDistrictMouseEnter}
+                          darkMode={darkMode}
                         />
                       </SlideDown>
                     </td>

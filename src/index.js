@@ -10,6 +10,7 @@ import App from "./App";
 import ErrorBoundary from "./components/errorhandling/ErrorBoundary";
 import ErrorUI from "./components/errorhandling/ErrorUI";
 import PageNotFound from "./components/errorhandling/PageNotFound";
+import AboutPage from "./components/mainviews/AboutPage";
 
 //main routing to route between main page, error page and page not found
 ReactDOM.render(
@@ -22,6 +23,15 @@ ReactDOM.render(
         render={() => (
           <ErrorBoundary>
             <App />
+          </ErrorBoundary>
+        )}
+      />
+      {/* About Page */}
+      <Route
+        path="/about"
+        render={() => (
+          <ErrorBoundary>
+            <AboutPage />
           </ErrorBoundary>
         )}
       />

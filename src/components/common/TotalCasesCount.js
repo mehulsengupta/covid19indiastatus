@@ -5,7 +5,7 @@ import { formatNumbersWithComma } from "../../utils/formatNumbersWithComma";
 import { formatDate, dateConvertToLocalTimeZone } from "../../utils/dateUtils";
 
 //component for total counting of country
-function TotalCasesCount(props) {
+function TotalCasesCount({ nationalCount, ...props }) {
   //specific styling for dark mode vs light mode
   const nationalCountStyle = props.darkMode
     ? "nationalcountdark"
@@ -15,35 +15,46 @@ function TotalCasesCount(props) {
     <div className="container-fluid">
       <div className="row">
         <div className="col-lg">
-          <div className="samelinedivalign">
-            <div className={props.darkMode ? "asondark" : "asonlight"}>
-              {tableHeader.AS_ON +
-                props.nationalCount.map((state) =>
-                  formatDate(dateConvertToLocalTimeZone(state.lastupdatedtime))
-                )}
-            </div>
+          <div className={props.darkMode ? "asondark" : "asonlight"}>
+            {tableHeader.AS_ON +
+              formatDate(
+                dateConvertToLocalTimeZone(nationalCount.lastupdatedtime)
+              )}
+          </div>
+        </div>
+
+        <div className="col-lg">
+          <div className="toggleicondiv">
+            <button
+              className={`${
+                props.darkMode ? "toggleicondark" : "toggleiconlight"
+              }`}
+              onClick={props.toggleMode}
+            >
+              <i className={props.darkMode ? "fas fa-sun" : "fas fa-moon"}></i>
+            </button>
           </div>
         </div>
       </div>
       <div className="row">
-        {props.nationalCount.map((state) => (
-          <React.Fragment key={state + "Fragment"}>
+        {
+          <React.Fragment key={nationalCount + "Fragment"}>
             <div
               className={`col ${nationalCountStyle} text-center`}
-              key={state.confirmed}
+              key={nationalCount.confirmed}
             >
               <div>{tableHeader.CONFIRMED}</div>
               <div className="totalconfirmed">
                 <div className="totaldeltaconfirmed">
                   {"+" + formatNumbersWithComma(props.deltaConfirmed)}
                 </div>
-                {formatNumbersWithComma(state.confirmed)}
+                {formatNumbersWithComma(nationalCount.confirmed)}
               </div>
             </div>
 
             <div
               className={`col ${nationalCountStyle} text-center`}
-              key={state.active}
+              key={nationalCount.active}
             >
               <div>{tableHeader.ACTIVE}</div>
               <div className="totalactive">
@@ -52,35 +63,35 @@ function TotalCasesCount(props) {
                     ? "+" + formatNumbersWithComma(props.deltaActive)
                     : tableHeader.NA}
                 </div>
-                {formatNumbersWithComma(state.active)}
+                {formatNumbersWithComma(nationalCount.active)}
               </div>
             </div>
             <div
               className={`col ${nationalCountStyle} text-center`}
-              key={state.recovered}
+              key={nationalCount.recovered}
             >
               <div>{tableHeader.RECOVERED}</div>
               <div className="totalrecovered">
                 <div className="totaldeltarecovered">
                   {"+" + formatNumbersWithComma(props.deltaRecovered)}
                 </div>
-                {formatNumbersWithComma(state.recovered)}
+                {formatNumbersWithComma(nationalCount.recovered)}
               </div>
             </div>
             <div
               className={`col ${nationalCountStyle} text-center`}
-              key={state.deaths}
+              key={nationalCount.deaths}
             >
               <div>{tableHeader.DEATHS}</div>
               <div className="totaldeaths">
                 <div className="totaldeltadeaths">
                   {"+" + formatNumbersWithComma(props.deltaDeaths)}
                 </div>
-                {formatNumbersWithComma(state.deaths)}
+                {formatNumbersWithComma(nationalCount.deaths)}
               </div>
             </div>
           </React.Fragment>
-        ))}
+        }
       </div>
     </div>
   );

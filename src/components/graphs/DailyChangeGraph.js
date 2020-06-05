@@ -101,7 +101,7 @@ function DailyChangeGraph(props) {
 
   //data to be used in graph
   const data = {
-    labels: labels,
+    labels,
     datasets: [
       {
         label: `${cssConstants.GRAPH_TITLE_PREFIX} ${props.criteria}`,
@@ -117,6 +117,9 @@ function DailyChangeGraph(props) {
       },
     ],
   };
+
+  //to get graph title in tooltip
+  //const [graphTitle] = data.datasets;
 
   //other misc options
   const options = {
@@ -177,6 +180,18 @@ function DailyChangeGraph(props) {
           },
         },
       ],
+    },
+    tooltips: {
+      mode: "index",
+      //to enable tooltip display at all points under the graph plot area
+      intersect: false,
+      callbacks: {
+        label: function (tooltipItem, data) {
+          return (
+            formatNumbersWithComma(tooltipItem.yLabel) + " Cases" //+ graphTitle.label
+          );
+        },
+      },
     },
   };
 

@@ -49,7 +49,7 @@ function ChoroplethMap(props) {
                 ? `${current.value} (${percentOf(
                     current.value,
                     props.totalCases[0][current.criteria.toLowerCase()]
-                  )} % of total ${current.criteria} in the state)`
+                  )} % of total ${current.criteria} in the State/UT)`
                 : !props.isZonal
                 ? `${current.value}%`
                 : `${capitalizeZone(current.value)}`)

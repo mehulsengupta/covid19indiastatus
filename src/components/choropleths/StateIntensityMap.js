@@ -16,6 +16,7 @@ import DailyChangeGraph from "../graphs/DailyChangeGraph";
 import useFetch from "../../customhooks/useFetch";
 import fetchDataTypes from "../constantvalues/fetchDataTypes";
 import LoadingIndicator from "../loader/LoadingIndicator";
+import { filterOutOthers } from "../../utils/filterOutOthers";
 
 //functional component to show state maps
 function StateIntensityMap({
@@ -137,6 +138,10 @@ function StateIntensityMap({
 
   //state name of state selected
   const stateName = selectedDistricts.map((district) => district.state);
+
+  //to filter out other states or unassigned states from the map & legend - to prevent legend value pointing
+  //to values which are not present in the choropleth
+  data = filterOutOthers(data);
 
   return (
     <>

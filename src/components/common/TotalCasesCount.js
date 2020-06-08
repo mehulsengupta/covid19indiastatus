@@ -72,11 +72,9 @@ function TotalCasesCount({ nationalCount, ...props }) {
               <div>{tableHeader.ACTIVE}</div>
               <div className="totalactive">
                 <div className="totaldeltaactive">
-                  {props.deltaActive >= 0 ? (
-                    "+" + formatNumbersWithComma(props.deltaActive)
-                  ) : (
-                    <i className="fa fa-hourglass-half"></i>
-                  )}
+                  {props.deltaActive >= 0
+                    ? "+" + formatNumbersWithComma(props.deltaActive)
+                    : tableHeader.NA}
                 </div>
                 {formatNumbersWithComma(nationalCount.active)}
               </div>

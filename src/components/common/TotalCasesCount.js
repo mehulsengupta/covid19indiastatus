@@ -27,6 +27,14 @@ function TotalCasesCount({ nationalCount, ...props }) {
           <div className="toggleicondiv">
             <button
               className={`${
+                props.darkMode ? "reloadicondark" : "reloadiconlight"
+              }`}
+              onClick={props.onReloadClick}
+            >
+              <i className="fas fa-sync-alt"></i>
+            </button>
+            <button
+              className={`${
                 props.darkMode ? "toggleicondark" : "toggleiconlight"
               }`}
               onClick={props.toggleMode}
@@ -46,7 +54,12 @@ function TotalCasesCount({ nationalCount, ...props }) {
               <div>{tableHeader.CONFIRMED}</div>
               <div className="totalconfirmed">
                 <div className="totaldeltaconfirmed">
-                  {"+" + formatNumbersWithComma(props.deltaConfirmed)}
+                  {props.deltaConfirmed >= 0 ? (
+                    "+" + formatNumbersWithComma(props.deltaConfirmed)
+                  ) : (
+                    // using icon if negative numbers found as awaiting proper data instead of '--'
+                    <i className="fa fa-hourglass-half"></i>
+                  )}
                 </div>
                 {formatNumbersWithComma(nationalCount.confirmed)}
               </div>
@@ -59,9 +72,11 @@ function TotalCasesCount({ nationalCount, ...props }) {
               <div>{tableHeader.ACTIVE}</div>
               <div className="totalactive">
                 <div className="totaldeltaactive">
-                  {props.deltaActive >= 0
-                    ? "+" + formatNumbersWithComma(props.deltaActive)
-                    : tableHeader.NA}
+                  {props.deltaActive >= 0 ? (
+                    "+" + formatNumbersWithComma(props.deltaActive)
+                  ) : (
+                    <i className="fa fa-hourglass-half"></i>
+                  )}
                 </div>
                 {formatNumbersWithComma(nationalCount.active)}
               </div>
@@ -73,7 +88,11 @@ function TotalCasesCount({ nationalCount, ...props }) {
               <div>{tableHeader.RECOVERED}</div>
               <div className="totalrecovered">
                 <div className="totaldeltarecovered">
-                  {"+" + formatNumbersWithComma(props.deltaRecovered)}
+                  {props.deltaRecovered >= 0 ? (
+                    "+" + formatNumbersWithComma(props.deltaRecovered)
+                  ) : (
+                    <i className="fa fa-hourglass-half"></i>
+                  )}
                 </div>
                 {formatNumbersWithComma(nationalCount.recovered)}
               </div>
@@ -85,7 +104,11 @@ function TotalCasesCount({ nationalCount, ...props }) {
               <div>{tableHeader.DEATHS}</div>
               <div className="totaldeaths">
                 <div className="totaldeltadeaths">
-                  {"+" + formatNumbersWithComma(props.deltaDeaths)}
+                  {props.deltaDeaths >= 0 ? (
+                    "+" + formatNumbersWithComma(props.deltaDeaths)
+                  ) : (
+                    <i className="fa fa-hourglass-half"></i>
+                  )}
                 </div>
                 {formatNumbersWithComma(nationalCount.deaths)}
               </div>

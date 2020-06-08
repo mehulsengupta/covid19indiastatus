@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { usePromiseTracker } from "react-promise-tracker";
-import LoadingOverlay from "react-loading-overlay";
 
 import tableHeader from "../../components/constantvalues/tableHeaders";
 import mapConstants from "../constantvalues/mapConstants";
@@ -15,7 +13,6 @@ import { getColorRange } from "./getColorRange";
 import { getDropDown } from "./getDropDownCountry";
 import { getDropDownGraph } from "./getDropDownGraph";
 import { getRates } from "./getRates";
-import ScrollToTopButton from "../common/ScrollToTopButton";
 import useFetch from "../../customhooks/useFetch";
 import fetchDataTypes from "../constantvalues/fetchDataTypes";
 
@@ -34,10 +31,8 @@ function IntensityMap({
   darkMode,
 }) {
   const [criteria, setCriteria] = useState(tableHeader.CONFIRMED);
-  const [stateTotals] = useFetch(fetchDataTypes.STATE);
+  const [stateTotals, , isStateLoading] = useFetch(fetchDataTypes.STATE);
   const [displayType, setDisplayType] = useState(mapConstants.DISPLAY_MAP);
-
-  const { promiseInProgress } = usePromiseTracker(); // destructuring - returns an object with named property
 
   //styling for dark vs light mode
   const headingStyle = darkMode ? "headingdark" : "headinglight";
@@ -100,135 +95,137 @@ function IntensityMap({
   };
 
   return (
-    <>
-      <LoadingOverlay active={promiseInProgress} spinner={<LoadingIndicator />}>
-        {/* for states being selected - hide country map and show state map based on state selected */}
+    /* for states being selected - hide country map and show state map based on state selected */
 
-        <div className="container-fluid mapdropdown">
-          {selectedStateDistricts !== "" && (
+    <div className="container-fluid mapdropdown">
+      {selectedStateDistricts !== "" && (
+        <div className="row">
+          <div className="col-lg">
+            <StateIntensityMap
+              selectedState={selectedStateDistricts}
+              stateTotals={onlyStates.filter(
+                (state) => state.statecode === selectedStateDistricts
+              )}
+              hoverDistrict={hoverDistrict}
+              onStateClick={onStateClick}
+              darkMode={darkMode}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* COUNTRY MAP & GRAPH START HERE */}
+
+      {/* show country graph */}
+      {selectedStateDistricts === "" &&
+        displayType === mapConstants.DISPLAY_GRAPH && (
+          <>
+            <div className="row">
+              <div className="col-md">
+                <CriteriaDropDown
+                  onClick={onClick}
+                  dropDownMenu={dropDownMenu}
+                  selectedCriteria={criteria}
+                />
+              </div>
+            </div>
+
             <div className="row">
               <div className="col-lg">
-                <StateIntensityMap
-                  selectedState={selectedStateDistricts}
-                  stateTotals={onlyStates.filter(
-                    (state) => state.statecode === selectedStateDistricts
-                  )}
-                  hoverDistrict={hoverDistrict}
-                  onStateClick={onStateClick}
+                <div className="samelinedivalign">
+                  <div>
+                    <h2 className={headingStyle}>
+                      {mapConstants.MAP_HEADING_COUNTRY}
+                    </h2>
+                  </div>
+                  <div className="backbuttondiv">
+                    <button
+                      className="btn btn-primary backbutton"
+                      onClick={onGraphButtonClick}
+                    >
+                      {mapConstants.MAP_BUTTON}
+                    </button>
+                  </div>
+                </div>
+                <DailyChangeGraph
+                  criteria={criteria}
+                  mapType={mapConstants.MAP_TYPE_COUNTRY}
                   darkMode={darkMode}
                 />
               </div>
             </div>
-          )}
+          </>
+        )}
 
-          {/* show country graph */}
-          {selectedStateDistricts === "" &&
-            displayType === mapConstants.DISPLAY_GRAPH && (
-              <>
-                <div className="row">
-                  <div className="col-md">
-                    <CriteriaDropDown
-                      onClick={onClick}
-                      dropDownMenu={dropDownMenu}
-                      selectedCriteria={criteria}
-                    />
+      {/* show country map */}
+      {isStateLoading ? (
+        <LoadingIndicator />
+      ) : (
+        selectedStateDistricts === "" &&
+        displayType === mapConstants.DISPLAY_MAP && (
+          <>
+            <div className="row">
+              <div className="col-md">
+                <CriteriaDropDown
+                  onClick={onClick}
+                  dropDownMenu={dropDownMenu}
+                  selectedCriteria={criteria}
+                />
+              </div>
+              <div className="col-md">
+                <LinearGradient
+                  data={getGradientData(data, COLOR_RANGE)}
+                  darkMode={darkMode}
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-lg">
+                <div className="samelinedivalign">
+                  <div>
+                    <h2 className={headingStyle}>
+                      {mapConstants.MAP_HEADING_COUNTRY}
+                    </h2>
                   </div>
-                </div>
-
-                <div className="row">
-                  <div className="col-lg">
-                    <div className="samelinedivalign">
-                      <div>
-                        <h2 className={headingStyle}>
-                          {mapConstants.MAP_HEADING_COUNTRY}
-                        </h2>
-                      </div>
-                      <div className="backbuttondiv">
+                  <div className="backbuttondiv">
+                    {criteria !== tableHeader.RECOVERY_RATE &&
+                      criteria !== tableHeader.DEATH_RATE &&
+                      criteria !== tableHeader.ACTIVE && (
                         <button
                           className="btn btn-primary backbutton"
                           onClick={onGraphButtonClick}
                         >
-                          {mapConstants.MAP_BUTTON}
+                          {mapConstants.GRAPH_BUTTON}
                         </button>
-                      </div>
-                    </div>
-                    <DailyChangeGraph
-                      criteria={criteria}
-                      mapType={mapConstants.MAP_TYPE_COUNTRY}
-                      darkMode={darkMode}
-                    />
-                  </div>
-                </div>
-              </>
-            )}
-
-          {/* show country map */}
-          {selectedStateDistricts === "" &&
-            displayType === mapConstants.DISPLAY_MAP && (
-              <>
-                <div className="row">
-                  <div className="col-md">
-                    <CriteriaDropDown
-                      onClick={onClick}
-                      dropDownMenu={dropDownMenu}
-                      selectedCriteria={criteria}
-                    />
-                  </div>
-                  <div className="col-md">
-                    <LinearGradient
-                      data={getGradientData(data, COLOR_RANGE)}
-                      darkMode={darkMode}
-                    />
+                      )}
                   </div>
                 </div>
 
-                <div className="row">
-                  <div className="col-lg">
-                    <div className="samelinedivalign">
-                      <div>
-                        <h2 className={headingStyle}>
-                          {mapConstants.MAP_HEADING_COUNTRY}
-                        </h2>
-                      </div>
-                      <div className="backbuttondiv">
-                        {criteria !== tableHeader.RECOVERY_RATE &&
-                          criteria !== tableHeader.DEATH_RATE &&
-                          criteria !== tableHeader.ACTIVE && (
-                            <button
-                              className="btn btn-primary backbutton"
-                              onClick={onGraphButtonClick}
-                            >
-                              {mapConstants.GRAPH_BUTTON}
-                            </button>
-                          )}
-                      </div>
-                    </div>
-
-                    <ChoroplethMap
-                      TOPO_JSON={INDIA_TOPO_JSON}
-                      MAP_PROJECTION={MAP_PROJECTION}
-                      DEFAULT_COLOR={DEFAULT_COLOR}
-                      totalCases={totalCases}
-                      data={data}
-                      COLOR_RANGE={COLOR_RANGE}
-                      hoverState={hoverState}
-                      type={mapConstants.MAP_TYPE_COUNTRY}
-                      onStateClick={onStateClick}
-                      isRate={
-                        criteria === tableHeader.RECOVERY_RATE ||
-                        criteria === tableHeader.DEATH_RATE
-                          ? true
-                          : false
-                      }
-                    />
-                  </div>
-                </div>
-              </>
-            )}
-        </div>
-        <ScrollToTopButton />
-      </LoadingOverlay>
-    </>
+                {/* Country choropleth only. State choropleth found in StateIntensityMap component */}
+                <ChoroplethMap
+                  TOPO_JSON={INDIA_TOPO_JSON}
+                  MAP_PROJECTION={MAP_PROJECTION}
+                  DEFAULT_COLOR={DEFAULT_COLOR}
+                  totalCases={totalCases}
+                  data={data}
+                  COLOR_RANGE={COLOR_RANGE}
+                  hoverState={hoverState}
+                  type={mapConstants.MAP_TYPE_COUNTRY}
+                  onStateClick={onStateClick}
+                  isRate={
+                    criteria === tableHeader.RECOVERY_RATE ||
+                    criteria === tableHeader.DEATH_RATE
+                      ? true
+                      : false
+                  }
+                />
+              </div>
+            </div>
+          </>
+        )
+      )}
+    </div>
   );
 }
 

@@ -8,10 +8,11 @@ import mapConstants from "../constantvalues/mapConstants";
 import cssconstants from "../constantvalues/cssconstants";
 import fetchDataTypes from "../constantvalues/fetchDataTypes";
 import useFetch from "../../customhooks/useFetch";
+import LoadingIndicator from "../loader/LoadingIndicator";
 
 //Graph component showing the daily changes
 function DailyChangeGraph(props) {
-  const [dailyChanges] = useFetch(
+  const [dailyChanges, , isLoading] = useFetch(
     props.mapType === mapConstants.MAP_TYPE_COUNTRY
       ? fetchDataTypes.COUNTRY_DAILY
       : fetchDataTypes.STATE_DAILY
@@ -196,7 +197,9 @@ function DailyChangeGraph(props) {
   };
 
   //stucture array to use raw data using Line graph
-  return (
+  return isLoading ? (
+    <LoadingIndicator />
+  ) : (
     <div>
       <Line data={data} height={300} width={400} options={options} />
     </div>

@@ -15,6 +15,7 @@ import LinearGradient from "./LinearGradient";
 import DailyChangeGraph from "../graphs/DailyChangeGraph";
 import useFetch from "../../customhooks/useFetch";
 import fetchDataTypes from "../constantvalues/fetchDataTypes";
+import LoadingIndicator from "../loader/LoadingIndicator";
 
 //functional component to show state maps
 function StateIntensityMap({
@@ -54,7 +55,7 @@ function StateIntensityMap({
 
   //hooks
   const [criteria, setCriteria] = useState(tableHeader.CONFIRMED);
-  const [districtTotals] = useFetch(fetchDataTypes.DISTRICT);
+  const [districtTotals, , isLoading] = useFetch(fetchDataTypes.DISTRICT);
   //const [zones] = useFetch(fetchDataTypes.ZONE);
   const [displayType, setDisplayType] = useState(mapConstants.DISPLAY_MAP);
   let data = [];
@@ -139,127 +140,136 @@ function StateIntensityMap({
 
   return (
     <>
-      {stateTotals.map((district) => (
-        <div className="row" key={district.statecode}>
-          <div className={`col ${stateCountStyle} text-center`}>
-            <div>{tableHeader.CONFIRMED}</div>
-            <div className="statetotalconfirmed">
-              {formatNumbersWithComma(district.confirmed)}
+      {isLoading ? (
+        <LoadingIndicator />
+      ) : (
+        stateTotals.map((district) => (
+          <div className="row" key={district.statecode}>
+            <div className={`col ${stateCountStyle} text-center`}>
+              <div>{tableHeader.CONFIRMED}</div>
+              <div className="statetotalconfirmed">
+                {formatNumbersWithComma(district.confirmed)}
+              </div>
+            </div>
+            <div className={`col ${stateCountStyle} text-center`}>
+              <div>{tableHeader.RECOVERED}</div>
+              <div className="statetotalrecovered">
+                {formatNumbersWithComma(district.recovered)}
+              </div>
+            </div>
+            <div className={`col ${stateCountStyle} text-center`}>
+              <div>{tableHeader.DECEASED}</div>
+              <div className="statetotaldeaths">
+                {formatNumbersWithComma(district.deaths)}
+              </div>
             </div>
           </div>
-          <div className={`col ${stateCountStyle} text-center`}>
-            <div>{tableHeader.RECOVERED}</div>
-            <div className="statetotalrecovered">
-              {formatNumbersWithComma(district.recovered)}
-            </div>
-          </div>
-          <div className={`col ${stateCountStyle} text-center`}>
-            <div>{tableHeader.DECEASED}</div>
-            <div className="statetotaldeaths">
-              {formatNumbersWithComma(district.deaths)}
-            </div>
-          </div>
-        </div>
-      ))}
-      {!stateUnassigned ? (
-        <>
-          <div className="row">
-            <div className="col-md">
-              <CriteriaDropDown
-                onClick={onClick}
-                dropDownMenu={dropDownMenu}
-                selectedCriteria={criteria}
-              />
-            </div>
-            {displayType === mapConstants.DISPLAY_MAP && (
+        ))
+      )}
+
+      {!isLoading ? (
+        !stateUnassigned ? (
+          <>
+            <div className="row">
               <div className="col-md">
-                <LinearGradient
-                  data={getGradientData(data, COLOR_RANGE)}
-                  criteria={criteria}
-                  darkMode={darkMode}
+                <CriteriaDropDown
+                  onClick={onClick}
+                  dropDownMenu={dropDownMenu}
+                  selectedCriteria={criteria}
                 />
               </div>
-            )}
-          </div>
-          <div>
-            <div className="col-md">
-              <div className="samelinedivalign">
-                <div>
-                  <h4 className={darkMode ? "headingdark" : "headinglight"}>
-                    {stateName}
-                  </h4>
+              {displayType === mapConstants.DISPLAY_MAP && (
+                <div className="col-md">
+                  <LinearGradient
+                    data={getGradientData(data, COLOR_RANGE)}
+                    criteria={criteria}
+                    darkMode={darkMode}
+                  />
                 </div>
-                <div className="backbuttondiv">
-                  <button
-                    className="btn btn-primary backbutton"
-                    onClick={() => onStateClick("")}
-                  >
-                    {mapConstants.BACK_BUTTON}
-                  </button>
-                </div>
-                <div className="backbuttondiv">
-                  {displayType === mapConstants.DISPLAY_MAP &&
-                    criteria !== tableHeader.RECOVERY_RATE &&
-                    criteria !== tableHeader.DEATH_RATE &&
-                    criteria !== tableHeader.ACTIVE && (
-                      // criteria !== tableHeader.ZONES && (
+              )}
+            </div>
+            <div>
+              <div className="col-md">
+                <div className="samelinedivalign">
+                  <div>
+                    <h4 className={darkMode ? "headingdark" : "headinglight"}>
+                      {stateName}
+                    </h4>
+                  </div>
+                  <div className="backbuttondiv">
+                    <button
+                      className="btn btn-primary backbutton"
+                      onClick={() => onStateClick("")}
+                    >
+                      {mapConstants.BACK_BUTTON}
+                    </button>
+                  </div>
+                  <div className="backbuttondiv">
+                    {displayType === mapConstants.DISPLAY_MAP &&
+                      criteria !== tableHeader.RECOVERY_RATE &&
+                      criteria !== tableHeader.DEATH_RATE &&
+                      criteria !== tableHeader.ACTIVE && (
+                        // criteria !== tableHeader.ZONES && (
+                        <button
+                          className="btn btn-primary backbutton"
+                          onClick={onGraphButtonClick}
+                        >
+                          {mapConstants.GRAPH_BUTTON}
+                        </button>
+                      )}
+                    {displayType === mapConstants.DISPLAY_GRAPH && (
                       <button
                         className="btn btn-primary backbutton"
                         onClick={onGraphButtonClick}
                       >
-                        {mapConstants.GRAPH_BUTTON}
+                        {mapConstants.MAP_BUTTON}
                       </button>
                     )}
-                  {displayType === mapConstants.DISPLAY_GRAPH && (
-                    <button
-                      className="btn btn-primary backbutton"
-                      onClick={onGraphButtonClick}
-                    >
-                      {mapConstants.MAP_BUTTON}
-                    </button>
-                  )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {displayType === mapConstants.DISPLAY_MAP ? (
-            <ChoroplethMap
-              TOPO_JSON={STATE_TOPO_JSON}
-              MAP_PROJECTION={MAP_PROJECTION}
-              DEFAULT_COLOR={DEFAULT_COLOR}
-              totalCases={stateTotals}
-              data={data}
-              COLOR_RANGE={COLOR_RANGE}
-              hoverDistrict={hoverDistrict}
-              onStateClick={onStateClick}
-              type={mapConstants.MAP_TYPE_STATE}
-              isRate={
-                criteria === tableHeader.RECOVERY_RATE ||
-                criteria === tableHeader.DEATH_RATE
-                  ? true
-                  : false
-              }
-              isZonal={false} //{criteria === tableHeader.ZONES ? true : false}
-            />
-          ) : (
-            <DailyChangeGraph
-              criteria={criteria}
-              mapType={mapConstants.MAP_TYPE_STATE}
-              statecode={selectedState}
-              darkMode={darkMode}
-            />
-          )}
-        </>
+            {displayType === mapConstants.DISPLAY_MAP ? (
+              <ChoroplethMap
+                TOPO_JSON={STATE_TOPO_JSON}
+                MAP_PROJECTION={MAP_PROJECTION}
+                DEFAULT_COLOR={DEFAULT_COLOR}
+                totalCases={stateTotals}
+                data={data}
+                COLOR_RANGE={COLOR_RANGE}
+                hoverDistrict={hoverDistrict}
+                onStateClick={onStateClick}
+                type={mapConstants.MAP_TYPE_STATE}
+                isRate={
+                  criteria === tableHeader.RECOVERY_RATE ||
+                  criteria === tableHeader.DEATH_RATE
+                    ? true
+                    : false
+                }
+                isZonal={false} //{criteria === tableHeader.ZONES ? true : false}
+              />
+            ) : (
+              <DailyChangeGraph
+                criteria={criteria}
+                mapType={mapConstants.MAP_TYPE_STATE}
+                statecode={selectedState}
+                darkMode={darkMode}
+              />
+            )}
+          </>
+        ) : (
+          <div className="backbuttondiv">
+            <button
+              className="btn btn-primary backbutton"
+              onClick={() => onStateClick("")}
+            >
+              {mapConstants.BACK_BUTTON}
+            </button>
+          </div>
+        )
       ) : (
-        <div className="backbuttondiv">
-          <button
-            className="btn btn-primary backbutton"
-            onClick={() => onStateClick("")}
-          >
-            {mapConstants.BACK_BUTTON}
-          </button>
-        </div>
+        <> </>
       )}
     </>
   );

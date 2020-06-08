@@ -191,3 +191,5 @@ function DistrictTable({
 }
 
 export default DistrictTable;
+
+/** Code can be modified to use a smart component Row that manages state and calculations of the district table */

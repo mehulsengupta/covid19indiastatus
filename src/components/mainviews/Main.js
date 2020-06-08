@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 
 import StateTable from "../common/StateTable";
-
 import IntensityMap from "../choropleths/IntensityMap";
-
 import { sortColumns } from "../../utils/sortColumns";
+
 //import mapDistrictZones from "../../utils/mapDistrictZones";
 
 import sortTypes from "../constantvalues/sortTypes";
 import tableHeader from "../constantvalues/tableHeaders";
-import SlideDown from "react-slidedown";
 import mapConstants from "../constantvalues/mapConstants";
 import useFetch from "../../customhooks/useFetch";
 import fetchDataTypes from "../constantvalues/fetchDataTypes";
+import LoadingIndicator from "../loader/LoadingIndicator";
 
 function Main(props) {
   /** Hooks definition start */
-  const [stateTotals, setStateTotals] = useFetch(fetchDataTypes.STATE); //hook to store state array
+  const [stateTotals, setStateTotals, isStateLoading] = useFetch(
+    fetchDataTypes.STATE
+  ); //hook to store state array
 
   const [districtTotals] = useFetch(fetchDataTypes.DISTRICT); //hook to store district object with nested statecode
   //and data
@@ -196,46 +197,46 @@ function Main(props) {
     }
   };
 
-  return (
-    <SlideDown>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col">
-            {
-              <StateTable
-                stateTotals={stateTotals.filter(
-                  (state) =>
-                    state.statecode !== tableHeader.NATIONALCOUNT &&
-                    parseInt(state.confirmed) !== 0
-                )}
-                onClick={onRowClick}
-                onMouseEnter={onRowMouseEnter}
-                onDistrictMouseEnter={onDistrictMouseEnter}
-                districtTotals={selectedStateDistricts}
-                isExpanded={isExpanded.expanded}
-                onSort={sortData}
-                sortOrder={sortOrder}
-                darkMode={props.darkMode}
-              />
-            }
-          </div>
-          <div className="col">
-            <div className="sticky-top">
-              {" "}
-              <IntensityMap
-                hoverState={hoverState}
-                selectedStateDistricts={
-                  mapState !== "" ? mapState : selectedStateDistricts.statecode
-                }
-                hoverDistrict={hoverDistrict}
-                onStateClick={onMapStateClick}
-                darkMode={props.darkMode}
-              />
-            </div>
+  return isStateLoading ? (
+    <LoadingIndicator />
+  ) : (
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-lg">
+          {
+            <StateTable
+              stateTotals={stateTotals.filter(
+                (state) =>
+                  state.statecode !== tableHeader.NATIONALCOUNT &&
+                  parseInt(state.confirmed) !== 0
+              )}
+              onClick={onRowClick}
+              onMouseEnter={onRowMouseEnter}
+              onDistrictMouseEnter={onDistrictMouseEnter}
+              districtTotals={selectedStateDistricts}
+              isExpanded={isExpanded.expanded}
+              onSort={sortData}
+              sortOrder={sortOrder}
+              darkMode={props.darkMode}
+            />
+          }
+        </div>
+
+        <div className="col-lg">
+          <div className="sticky-top">
+            <IntensityMap
+              hoverState={hoverState}
+              selectedStateDistricts={
+                mapState !== "" ? mapState : selectedStateDistricts.statecode
+              }
+              hoverDistrict={hoverDistrict}
+              onStateClick={onMapStateClick}
+              darkMode={props.darkMode}
+            />
           </div>
         </div>
       </div>
-    </SlideDown>
+    </div>
   );
 }
 

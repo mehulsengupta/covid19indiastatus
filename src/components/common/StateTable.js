@@ -1,5 +1,5 @@
 import React from "react";
-import { SlideDown } from "react-slidedown";
+import SlideDown from "react-slidedown";
 
 import "react-slidedown/lib/slidedown.css";
 
@@ -243,7 +243,7 @@ function StateTable({
                       }
                     >
                       {" "}
-                      <SlideDown className="districtsslidedown">
+                      <SlideDown>
                         <DistrictTable
                           districtTotals={districtTotals}
                           onSort={onSort}
@@ -266,3 +266,5 @@ function StateTable({
 }
 
 export default StateTable;
+
+/** Code can be modified to use a smart component Row that manages state and calculations of the state table */

@@ -6,12 +6,13 @@ import useNumberRace from "../../customhooks/useNumberRace";
 import tableHeader from "../constantvalues/tableHeaders";
 import fetchDataTypes from "../constantvalues/fetchDataTypes";
 import useFetch from "../../customhooks/useFetch";
+import LoadingIndicator from "../loader/LoadingIndicator";
 
 function NationalCount(props) {
   /** States defined */
 
   //fetching statetotals from custom hook
-  const [stateTotals] = useFetch(fetchDataTypes.STATE);
+  const [stateTotals, , isLoading] = useFetch(fetchDataTypes.STATE);
 
   const [deltaConfirmed, setDeltaConfirmed] = useNumberRace(
     tableHeader.CONFIRMED
@@ -32,14 +33,11 @@ function NationalCount(props) {
   const [nationalCount] = nationalTotalCount;
 
   /**  Get the delta data - to prevent pass through of undefined value  */
-  const deltaconfirmed =
-    typeof nationalCount !== "undefined" ? nationalCount.deltaconfirmed : null;
+  const deltaconfirmed = !isLoading ? nationalCount.deltaconfirmed : null;
 
-  const deltarecovered =
-    typeof nationalCount !== "undefined" ? nationalCount.deltarecovered : null;
+  const deltarecovered = !isLoading ? nationalCount.deltarecovered : null;
 
-  const deltadeaths =
-    typeof nationalCount !== "undefined" ? nationalCount.deltadeaths : null;
+  const deltadeaths = !isLoading ? nationalCount.deltadeaths : null;
 
   const deltaactive = deltaconfirmed - deltarecovered - deltadeaths;
 
@@ -60,13 +58,14 @@ function NationalCount(props) {
   }, 100);
 
   //Component to show national count
-  return deltaconfirmed === null && typeof nationalCount === "undefined" ? (
-    <></>
+  return isLoading ? (
+    <LoadingIndicator loaderType={tableHeader.COMPONENT_LOADER} />
   ) : (
     <TotalCasesCount
       nationalCount={nationalCount}
       toggleMode={props.toggleMode}
       darkMode={props.darkMode}
+      onReloadClick={props.onReloadClick}
       deltaConfirmed={deltaConfirmed}
       deltaRecovered={deltaRecovered}
       deltaDeaths={deltaDeaths}

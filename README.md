@@ -21,6 +21,6 @@ using the figures from a crowd sourced database.
 
 * MIT License
 
-Thanks to https://api.covid19india.org/ for the awesome API.
+Thanks to [COVID19 INDIA](https://api.covid19india.org/) for the awesome API.
 
 ---

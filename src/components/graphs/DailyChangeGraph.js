@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Line, defaults } from "react-chartjs-2";
 
 import { formatNumbersWithComma } from "../../utils/formatNumbersWithComma";
@@ -6,17 +6,30 @@ import tableHeader from "../constantvalues/tableHeaders";
 import cssConstants from "../constantvalues/cssconstants";
 import mapConstants from "../constantvalues/mapConstants";
 import cssconstants from "../constantvalues/cssconstants";
-import fetchDataTypes from "../constantvalues/fetchDataTypes";
-import useFetch from "../../customhooks/useFetch";
 import LoadingIndicator from "../loader/LoadingIndicator";
+import { ApiDataContext } from "../HomePage";
 
 //Graph component showing the daily changes
 function DailyChangeGraph(props) {
-  const [dailyChanges, , isLoading] = useFetch(
+  //get context values
+  const {
+    darkMode,
+    countryDailyChange,
+    isCountryDailyChangeLoading,
+    stateDailyChange,
+    isStateDailyChangeLoading,
+  } = useContext(ApiDataContext);
+
+  const dailyChanges =
     props.mapType === mapConstants.MAP_TYPE_COUNTRY
-      ? fetchDataTypes.COUNTRY_DAILY
-      : fetchDataTypes.STATE_DAILY
-  );
+      ? countryDailyChange
+      : stateDailyChange;
+
+  const isLoading =
+    props.mapType === mapConstants.MAP_TYPE_COUNTRY
+      ? isCountryDailyChangeLoading
+      : isStateDailyChangeLoading;
+
   const criteria =
     (props.mapType === mapConstants.MAP_TYPE_COUNTRY
       ? mapConstants.GRAPH_PREFIX
@@ -29,7 +42,7 @@ function DailyChangeGraph(props) {
   let labels = [];
 
   //styling for dark vs light mode
-  const defaultTickFontColor = props.darkMode
+  const defaultTickFontColor = darkMode
     ? cssConstants.GRAPH_DEFAULT_TICK_FONT_COLOR_DARK
     : cssConstants.GRAPH_DEFAULT_TICK_FONT_COLOR_LIGHT;
 
@@ -70,11 +83,11 @@ function DailyChangeGraph(props) {
           pointBorderColor: cssConstants.GRAPH_DEATH_POINT_BORDER_COLOR,
           pointHoverBackgroundColor:
             cssConstants.GRAPH_DEATH_POINT_HOVER_BG_COLOR,
-          legendFontColor: props.darkMode
+          legendFontColor: darkMode
             ? cssConstants.GRAPH_DEATH_LEGEND_FONT_COLOR_DARK
             : cssConstants.GRAPH_DEATH_LEGEND_FONT_COLOR_LIGHT,
           legendFontStyle: cssConstants.GRAPH_DEATH_LEGEND_FONT_STYLE,
-          axesFontColor: props.darkMode
+          axesFontColor: darkMode
             ? cssConstants.GRAPH_DEATH_SCALE_FONT_COLOR_DARK
             : cssConstants.GRAPH_DEATH_SCALE_FONT_COLOR_LIGHT,
         };
@@ -86,9 +99,11 @@ function DailyChangeGraph(props) {
     labels = dailyChanges.map((selectedDay) => selectedDay.date);
     numbers = dailyChanges.map((selectedDay) => selectedDay[criteria]);
   } else {
-    const _interm = dailyChanges.filter(
-      (selectedDay) => selectedDay.status.toLowerCase() === criteria
-    );
+    const _interm =
+      !isLoading &&
+      dailyChanges.filter(
+        (selectedDay) => selectedDay.status.toLowerCase() === criteria
+      );
     labels = _interm.map((selectedDay) => selectedDay.date);
     numbers = _interm.map(
       (selectedDay) => selectedDay[props.statecode.toLowerCase()]

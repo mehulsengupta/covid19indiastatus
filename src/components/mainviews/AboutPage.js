@@ -3,15 +3,14 @@ import React from "react";
 import useDarkMode from "../../customhooks/useDarkMode";
 import aboutInfo from "../constantvalues/aboutInfo";
 import tableHeader from "../constantvalues/tableHeaders";
-import Header from "../headerfooter/Header";
 import { Link } from "react-router-dom";
+import Header from "../headerfooter/Header";
 
 //About the site
 const AboutPage = () => {
   const { darkMode } = useDarkMode();
 
   const divstyle = "about" + (darkMode ? "dark" : "light");
-  const headerstyle = darkMode ? "darkbody" : "lightbody";
   const headerdiv = darkMode ? "headerdivdark" : "headerdivlight";
   const datasourcelink = "datasourcelink" + (darkMode ? "dark" : "light");
 
@@ -19,9 +18,7 @@ const AboutPage = () => {
 
   return (
     <>
-      <div className={headerstyle}>
-        <Header darkMode={darkMode} />
-      </div>
+      <Header darkMode={darkMode} />
       <div className={divstyle}>
         <div>
           <h3 className={headerdiv}>About</h3>

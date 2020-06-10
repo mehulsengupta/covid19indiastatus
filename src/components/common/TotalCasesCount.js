@@ -58,7 +58,7 @@ function TotalCasesCount({ nationalCount, ...props }) {
                     "+" + formatNumbersWithComma(props.deltaConfirmed)
                   ) : (
                     // using icon if negative numbers found as awaiting proper data instead of '--'
-                    <i className="fa fa-hourglass-half"></i>
+                    <i className={tableHeader.HOURGLASS_ICON}></i>
                   )}
                 </div>
                 {formatNumbersWithComma(nationalCount.confirmed)}
@@ -89,7 +89,7 @@ function TotalCasesCount({ nationalCount, ...props }) {
                   {props.deltaRecovered >= 0 ? (
                     "+" + formatNumbersWithComma(props.deltaRecovered)
                   ) : (
-                    <i className="fa fa-hourglass-half"></i>
+                    <i className={tableHeader.HOURGLASS_ICON}></i>
                   )}
                 </div>
                 {formatNumbersWithComma(nationalCount.recovered)}
@@ -105,7 +105,7 @@ function TotalCasesCount({ nationalCount, ...props }) {
                   {props.deltaDeaths >= 0 ? (
                     "+" + formatNumbersWithComma(props.deltaDeaths)
                   ) : (
-                    <i className="fa fa-hourglass-half"></i>
+                    <i className={tableHeader.HOURGLASS_ICON}></i>
                   )}
                 </div>
                 {formatNumbersWithComma(nationalCount.deaths)}

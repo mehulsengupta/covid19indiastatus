@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import tableHeader from "../constantvalues/tableHeaders";
 import mapConstants from "../constantvalues/mapConstants";
@@ -13,19 +13,16 @@ import CriteriaDropDown from "../common/CriteriaDropDowns";
 import LinearGradient from "./LinearGradient";
 //import mapDistrictZones from "../../utils/mapDistrictZones";
 import DailyChangeGraph from "../graphs/DailyChangeGraph";
-import useFetch from "../../customhooks/useFetch";
-import fetchDataTypes from "../constantvalues/fetchDataTypes";
 import LoadingIndicator from "../loader/LoadingIndicator";
 import { filterOutOthers } from "../../utils/filterOutOthers";
+import { ApiDataContext } from "../HomePage";
 
 //functional component to show state maps
-function StateIntensityMap({
-  selectedState,
-  stateTotals,
-  hoverDistrict,
-  onStateClick,
-  darkMode,
-}) {
+function StateIntensityMap({ selectedState, stateTotals, onStateClick }) {
+  const { darkMode, districtTotals, isDistrictLoading } = useContext(
+    ApiDataContext
+  );
+
   //get appropriate topo json file
   let STATE_TOPO_JSON = "";
   let stateUnassigned = false;
@@ -56,7 +53,6 @@ function StateIntensityMap({
 
   //hooks
   const [criteria, setCriteria] = useState(tableHeader.CONFIRMED);
-  const [districtTotals, , isLoading] = useFetch(fetchDataTypes.DISTRICT);
   //const [zones] = useFetch(fetchDataTypes.ZONE);
   const [displayType, setDisplayType] = useState(mapConstants.DISPLAY_MAP);
   let data = [];
@@ -145,7 +141,7 @@ function StateIntensityMap({
 
   return (
     <>
-      {isLoading ? (
+      {isDistrictLoading ? (
         <LoadingIndicator />
       ) : (
         stateTotals.map((district) => (
@@ -172,7 +168,7 @@ function StateIntensityMap({
         ))
       )}
 
-      {!isLoading ? (
+      {!isDistrictLoading ? (
         !stateUnassigned ? (
           <>
             <div className="row">
@@ -188,7 +184,6 @@ function StateIntensityMap({
                   <LinearGradient
                     data={getGradientData(data, COLOR_RANGE)}
                     criteria={criteria}
-                    darkMode={darkMode}
                   />
                 </div>
               )}
@@ -243,7 +238,6 @@ function StateIntensityMap({
                 totalCases={stateTotals}
                 data={data}
                 COLOR_RANGE={COLOR_RANGE}
-                hoverDistrict={hoverDistrict}
                 onStateClick={onStateClick}
                 type={mapConstants.MAP_TYPE_STATE}
                 isRate={
@@ -259,7 +253,6 @@ function StateIntensityMap({
                 criteria={criteria}
                 mapType={mapConstants.MAP_TYPE_STATE}
                 statecode={selectedState}
-                darkMode={darkMode}
               />
             )}
           </>

@@ -1,11 +1,12 @@
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import ReactToolTip from "react-tooltip";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { scaleQuantile } from "d3-scale";
 
 import percentOf from "../../utils/percentOf";
 import capitalizeZone from "../../utils/capitalizeZone";
 import mapConstants from "../constantvalues/mapConstants";
+import { DistrictContext } from "../mainviews/Main";
 
 //Geography styles to be applied to map
 const geographyStyle = {
@@ -73,6 +74,9 @@ function ChoroplethMap(props) {
   const colorScale = scaleQuantile()
     .domain(domainValues)
     .range(props.COLOR_RANGE);
+
+  const { hoverDistrict } = useContext(DistrictContext);
+
   return (
     <>
       <ReactToolTip>{toolTipContent}</ReactToolTip>
@@ -107,7 +111,7 @@ function ChoroplethMap(props) {
                       ? currentState && props.hoverState === currentState.id
                         ? "yellow"
                         : "none"
-                      : currentState && props.hoverDistrict === currentState.id
+                      : currentState && hoverDistrict === currentState.id
                       ? "yellow"
                       : "none"
                   }
@@ -116,7 +120,7 @@ function ChoroplethMap(props) {
                       ? currentState && props.hoverState === currentState.id
                         ? "20"
                         : "none"
-                      : currentState && props.hoverDistrict === currentState.id
+                      : currentState && hoverDistrict === currentState.id
                       ? "20"
                       : "none"
                   }

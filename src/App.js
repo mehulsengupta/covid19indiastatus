@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { Route, Switch } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import FadeIn from "react-fade-in";
 
-import Main from "./components/mainviews/Main";
-import Header from "./components/headerfooter/Header";
-import NationalCount from "./components/mainviews/NationalCount";
-import Timer from "./components/mainviews/Timer";
-import Footer from "./components/headerfooter/Footer";
-import Acknowledgement from "./components/mainviews/Acknowledgement";
+import ErrorBoundary from "./components/errorhandling/ErrorBoundary";
+import ErrorUI from "./components/errorhandling/ErrorUI";
+import PageNotFound from "./components/errorhandling/PageNotFound";
+import AboutPage from "./components/mainviews/AboutPage";
 import useDarkMode from "./customhooks/useDarkMode";
-import LoadingIndicator from "./components/loader/LoadingIndicator";
 import tableHeader from "./components/constantvalues/tableHeaders";
-import ScrollToTopButton from "./components/common/ScrollToTopButton";
+import HomePage from "./components/HomePage";
+import { useLoadData } from "./customhooks/useLoadData";
 
 function App() {
+  //dark vs light mode
   const { darkMode, toggleDarkMode } = useDarkMode();
+
+  //check if page loading for first time to show spinner
   const [initialLoad, setInitialLoad] = useState(true);
 
   //Reload components on reload button click
@@ -28,9 +29,12 @@ function App() {
     return () => clearTimeout(loadTime);
   });
 
-  //edit head of index.html as per dark or light mode
+  //get data from API - global - prevent repeated calls to API using useContext
+  const apiData = useLoadData();
+
   return (
-    <div>
+    <>
+      {/* edit head of index.html as per dark or light mode */}
       <Helmet>
         {darkMode ? (
           <style>{`body{background-color: rgb(41, 40, 40);}`}</style>
@@ -39,30 +43,48 @@ function App() {
         )}
       </Helmet>
 
-      {/* show loading indicator for loading */}
-      {initialLoad ? (
-        <LoadingIndicator loaderType={tableHeader.INITIAL_LOADER} />
-      ) : (
-        <>
-          <FadeIn
-            delay={tableHeader.FADE_IN_COMPONENT_DELAY}
-            transitionDuration={tableHeader.FADE_IN_TRANSITION_DURATION}
-          >
-            <Header darkMode={darkMode} />
-            <Timer darkMode={darkMode} />
-            <NationalCount
-              toggleMode={toggleDarkMode}
-              darkMode={darkMode}
-              onReloadClick={onReloadClick}
-            />
-            <Main darkMode={darkMode} />
-            <Acknowledgement darkMode={darkMode} />
-            <Footer />
-          </FadeIn>
-          <ScrollToTopButton />
-        </>
-      )}
-    </div>
+      {/* Header can be used here as a common component to all pages */}
+      {/* <Header /> */}
+      <Switch>
+        {/* to prevent unnecessary unmount and remount, render prop is used with inline*/}
+        <Route
+          path="/"
+          exact
+          render={(props) => (
+            <ErrorBoundary>
+              <HomePage
+                {...props}
+                darkMode={darkMode}
+                toggleDarkMode={toggleDarkMode}
+                onReloadClick={onReloadClick}
+                apiData={apiData}
+                initialLoad={initialLoad}
+              />
+            </ErrorBoundary>
+          )}
+        />
+        {/* About Page */}
+        <Route
+          path="/about"
+          render={() => (
+            <ErrorBoundary>
+              <AboutPage />
+            </ErrorBoundary>
+          )}
+        />
+        {/* For error page redirects */}
+        <Route
+          path="/error"
+          render={(props) => <ErrorUI {...props} darkMode={darkMode} />}
+        />
+        {/* For all other invalid URLs */}
+        <Route
+          /*component={PageNotFound}*/ render={(props) => (
+            <PageNotFound {...props} darkMode={darkMode} />
+          )}
+        />
+      </Switch>
+    </>
   );
 }
 

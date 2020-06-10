@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import SlideDown from "react-slidedown";
 
 import "react-slidedown/lib/slidedown.css";
@@ -8,19 +8,21 @@ import cssConstants from "../constantvalues/cssconstants";
 import sortTypes from "../constantvalues/sortTypes";
 import { formatNumbersWithComma } from "../../utils/formatNumbersWithComma";
 import DistrictTable from "./DistrictTable";
+import { ApiDataContext } from "../HomePage";
 
 //To generate list of states
 function StateTable({
   stateTotals,
   onClick,
   onMouseEnter,
-  onDistrictMouseEnter,
   districtTotals,
   isExpanded,
   onSort,
   sortOrder,
-  darkMode,
 }) {
+  //get mode from parent context
+  const { darkMode } = useContext(ApiDataContext);
+
   //styling for dark mode vs light mode
   const tableHeaderStyle = darkMode ? "dark" : "light";
 
@@ -140,8 +142,14 @@ function StateTable({
                       ? cssConstants.selectedStateBgColor
                       : null,
                 }}
+                //prevented unassigned states from being shown
                 key={selectedStateTotal.statecode}
-                onClick={() => onClick(selectedStateTotal.statecode)}
+                onClick={() =>
+                  !(
+                    selectedStateTotal.statecode ===
+                    tableHeader.STATE_UNASSIGNED
+                  ) && onClick(selectedStateTotal.statecode)
+                }
                 onMouseEnter={() =>
                   onMouseEnter(() => selectedStateTotal.statecode)
                 }
@@ -152,6 +160,9 @@ function StateTable({
                       isExpanded &&
                       selectedStateTotal.statecode === districtTotals.statecode
                         ? sortTypes.EXPANDEDICON
+                        : selectedStateTotal.statecode ===
+                          tableHeader.STATE_UNASSIGNED
+                        ? tableHeader.HOURGLASS_ICON
                         : sortTypes.COLLAPSEDICON
                     }
                   ></i>
@@ -250,8 +261,6 @@ function StateTable({
                           sortOrder={Object.assign(sortOrder, {
                             table: sortTypes.DISTRICT,
                           })}
-                          onDistrictMouseEnter={onDistrictMouseEnter}
-                          darkMode={darkMode}
                         />
                       </SlideDown>
                     </td>

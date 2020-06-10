@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import tableHeader from "../constantvalues/tableHeaders";
 import { formatNumbersWithComma } from "../../utils/formatNumbersWithComma";
+import { ApiDataContext } from "../HomePage";
 
 //component to generate the linear gradient legend used in map
 const LinearGradient = (props) => {
+  const { darkMode } = useContext(ApiDataContext);
+
   //styling for dark vs light mode
-  const gradientStyleMode = props.darkMode
-    ? "gradientboxdark"
-    : "gradientboxlight";
+  const gradientStyleMode = darkMode ? "gradientboxdark" : "gradientboxlight";
 
   //for zones, don't show gradient
   if (props.criteria === tableHeader.ZONES)

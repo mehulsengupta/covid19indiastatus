@@ -1,26 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext, createContext } from "react";
 
 import StateTable from "../common/StateTable";
 import IntensityMap from "../choropleths/IntensityMap";
 import { sortColumns } from "../../utils/sortColumns";
-
-//import mapDistrictZones from "../../utils/mapDistrictZones";
-
 import sortTypes from "../constantvalues/sortTypes";
 import tableHeader from "../constantvalues/tableHeaders";
 import mapConstants from "../constantvalues/mapConstants";
-import useFetch from "../../customhooks/useFetch";
-import fetchDataTypes from "../constantvalues/fetchDataTypes";
+import { ApiDataContext } from "../HomePage";
 import LoadingIndicator from "../loader/LoadingIndicator";
+//import mapDistrictZones from "../../utils/mapDistrictZones";
 
-function Main(props) {
-  /** Hooks definition start */
-  const [stateTotals, setStateTotals, isStateLoading] = useFetch(
-    fetchDataTypes.STATE
-  ); //hook to store state array
+function Main() {
+  const { stateTotals, isStateLoading, districtTotals } = useContext(
+    ApiDataContext
+  );
 
-  const [districtTotals] = useFetch(fetchDataTypes.DISTRICT); //hook to store district object with nested statecode
-  //and data
+  const [onlyStates, setOnlyStates] = useState(stateTotals);
 
   //const [zones] = useFetch(fetchDataTypes.ZONE); //hook to store zones nation wide
 
@@ -55,7 +50,7 @@ function Main(props) {
 
   //first time display sort to confirmed descending
   if (sortOrder.flag)
-    sortColumns(stateTotals, sortTypes.DESCENDING, tableHeader.CONFIRMED);
+    sortColumns(onlyStates, sortTypes.DESCENDING, tableHeader.CONFIRMED);
 
   const getDistrictArray = (statecode) => {
     //get districts list for particular state out of the list of all districts of all states
@@ -165,7 +160,7 @@ function Main(props) {
           })
         );
       }
-      setStateTotals(totalsList);
+      setOnlyStates(totalsList);
     } else {
       //district - table
       if (sortOrder.order === sortTypes.ASCENDING) {
@@ -204,40 +199,50 @@ function Main(props) {
       <div className="row">
         <div className="col-lg">
           {
-            <StateTable
-              stateTotals={stateTotals.filter(
-                (state) =>
-                  state.statecode !== tableHeader.NATIONALCOUNT &&
-                  parseInt(state.confirmed) !== 0
-              )}
-              onClick={onRowClick}
-              onMouseEnter={onRowMouseEnter}
-              onDistrictMouseEnter={onDistrictMouseEnter}
-              districtTotals={selectedStateDistricts}
-              isExpanded={isExpanded.expanded}
-              onSort={sortData}
-              sortOrder={sortOrder}
-              darkMode={props.darkMode}
-            />
+            <DistrictContext.Provider
+              value={{
+                onDistrictMouseEnter,
+              }}
+            >
+              <StateTable
+                stateTotals={onlyStates.filter(
+                  (state) =>
+                    state.statecode !== tableHeader.NATIONALCOUNT &&
+                    parseInt(state.confirmed) !== 0
+                )}
+                onClick={onRowClick}
+                onMouseEnter={onRowMouseEnter}
+                districtTotals={selectedStateDistricts}
+                isExpanded={isExpanded.expanded}
+                onSort={sortData}
+                sortOrder={sortOrder}
+              />
+            </DistrictContext.Provider>
           }
         </div>
 
         <div className="col-lg">
           <div className="sticky-top">
-            <IntensityMap
-              hoverState={hoverState}
-              selectedStateDistricts={
-                mapState !== "" ? mapState : selectedStateDistricts.statecode
-              }
-              hoverDistrict={hoverDistrict}
-              onStateClick={onMapStateClick}
-              darkMode={props.darkMode}
-            />
+            <DistrictContext.Provider
+              value={{
+                hoverDistrict,
+              }}
+            >
+              <IntensityMap
+                hoverState={hoverState}
+                selectedStateDistricts={
+                  mapState !== "" ? mapState : selectedStateDistricts.statecode
+                }
+                onStateClick={onMapStateClick}
+              />
+            </DistrictContext.Provider>
           </div>
         </div>
       </div>
     </div>
   );
 }
+
+export const DistrictContext = createContext();
 
 export default Main;

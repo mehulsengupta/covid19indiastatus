@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Redirect, Link } from "react-router-dom";
 
-function PageNotFound() {
+function PageNotFound(props) {
+  const style = props.darkMode ? "dark" : "light";
+
   const [timer, setTimer] = useState(5);
 
   useEffect(() => {
@@ -16,12 +18,12 @@ function PageNotFound() {
       {timer > 0 ? (
         <div className="container-fluid">
           <div className="row">
-            <div className="col-lg errorheading">
+            <div className={"col-lg errorheading" + style}>
               {"There's nothing in here!"}
             </div>
           </div>
           <div className="row">
-            <div className="col-lg errorbody">
+            <div className={"col-lg errorbody" + style}>
               {"You seem to have typed a WRONG URL."}
             </div>
           </div>

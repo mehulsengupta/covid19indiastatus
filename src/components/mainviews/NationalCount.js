@@ -4,15 +4,14 @@ import TotalCountCode from "../constantvalues/tableHeaders";
 import TotalCasesCount from "../common/TotalCasesCount";
 import useNumberRace from "../../customhooks/useNumberRace";
 import tableHeader from "../constantvalues/tableHeaders";
-import fetchDataTypes from "../constantvalues/fetchDataTypes";
-import useFetch from "../../customhooks/useFetch";
 import LoadingIndicator from "../loader/LoadingIndicator";
 
 function NationalCount(props) {
   /** States defined */
 
-  //fetching statetotals from custom hook
-  const [stateTotals, , isLoading] = useFetch(fetchDataTypes.STATE);
+  //fetch data from parent component
+  const stateTotals = props.stateTotals;
+  const isLoading = props.isStateLoading;
 
   const [deltaConfirmed, setDeltaConfirmed] = useNumberRace(
     tableHeader.CONFIRMED

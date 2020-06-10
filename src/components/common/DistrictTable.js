@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import sortTypes from "../constantvalues/sortTypes";
 import tableHeader from "../constantvalues/tableHeaders";
 import { formatNumbersWithComma } from "../../utils/formatNumbersWithComma";
+import { DistrictContext } from "../mainviews/Main";
+import { ApiDataContext } from "../HomePage";
 
 //To generate list of districts
-function DistrictTable({
-  districtTotals,
-  onSort,
-  sortOrder,
-  onDistrictMouseEnter,
-  darkMode,
-}) {
+function DistrictTable({ districtTotals, onSort, sortOrder }) {
+  //get mode & event handler from parent context
+  const { darkMode } = useContext(ApiDataContext);
+  const { onDistrictMouseEnter } = useContext(DistrictContext);
+
   //styling for dark vs light mode
   const tableHeaderStyle = darkMode ? "dark" : "light";
+
+  //Using context to pass data from Main.js
 
   return (
     <table className="table table-sm table-hover table-striped">

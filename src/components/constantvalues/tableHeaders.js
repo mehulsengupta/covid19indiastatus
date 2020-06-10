@@ -14,11 +14,13 @@ export default {
   AS_ON: "All Figures as on: ",
   TIME_NOW: "Time now: ",
   NA: "--",
+  HOURGLASS_ICON: "fa fa-hourglass-half",
   ERROR_HEADING: "Oops! There was an error.",
   ERROR_MESSAGE:
     "Check your internet connection and try again. If the issue persists, contact the site owner.",
   SIKKIM: "Sikkim",
   SIKKIM_CODE: "SK",
+  STATE_UNASSIGNED: "UN",
   API_HOME_PAGE_LINK: "https://api.covid19india.org/",
   DATASOURCE: "DATASOURCE (Crowd-Sourced Database)",
   ABOUT: "About",

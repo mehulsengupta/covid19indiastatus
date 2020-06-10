@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import tableHeader from "../../components/constantvalues/tableHeaders";
 import mapConstants from "../constantvalues/mapConstants";
@@ -13,8 +13,7 @@ import { getColorRange } from "./getColorRange";
 import { getDropDown } from "./getDropDownCountry";
 import { getDropDownGraph } from "./getDropDownGraph";
 import { getRates } from "./getRates";
-import useFetch from "../../customhooks/useFetch";
-import fetchDataTypes from "../constantvalues/fetchDataTypes";
+import { ApiDataContext } from "../HomePage";
 
 //define constants
 const INDIA_TOPO_JSON = require("../../topoJson/india.topo.json");
@@ -23,16 +22,11 @@ const MAP_PROJECTION = mapConstants.MAP_PROJECTION;
 const DEFAULT_COLOR = mapConstants.DEFAULT_COLOR;
 
 //Component
-function IntensityMap({
-  hoverState,
-  selectedStateDistricts,
-  hoverDistrict,
-  onStateClick,
-  darkMode,
-}) {
+function IntensityMap({ hoverState, selectedStateDistricts, onStateClick }) {
   const [criteria, setCriteria] = useState(tableHeader.CONFIRMED);
-  const [stateTotals, , isStateLoading] = useFetch(fetchDataTypes.STATE);
   const [displayType, setDisplayType] = useState(mapConstants.DISPLAY_MAP);
+
+  const { darkMode, stateTotals, isStateLoading } = useContext(ApiDataContext);
 
   //styling for dark vs light mode
   const headingStyle = darkMode ? "headingdark" : "headinglight";
@@ -106,9 +100,7 @@ function IntensityMap({
               stateTotals={onlyStates.filter(
                 (state) => state.statecode === selectedStateDistricts
               )}
-              hoverDistrict={hoverDistrict}
               onStateClick={onStateClick}
-              darkMode={darkMode}
             />
           </div>
         </div>
@@ -150,7 +142,6 @@ function IntensityMap({
                 <DailyChangeGraph
                   criteria={criteria}
                   mapType={mapConstants.MAP_TYPE_COUNTRY}
-                  darkMode={darkMode}
                 />
               </div>
             </div>
@@ -173,10 +164,7 @@ function IntensityMap({
                 />
               </div>
               <div className="col-md">
-                <LinearGradient
-                  data={getGradientData(data, COLOR_RANGE)}
-                  darkMode={darkMode}
-                />
+                <LinearGradient data={getGradientData(data, COLOR_RANGE)} />
               </div>
             </div>
 

@@ -3,14 +3,20 @@ import { Link } from "react-router-dom";
 
 import message from "../constantvalues/tableHeaders";
 
-function ErrorUI() {
+function ErrorUI({ darkMode }) {
+  const style = darkMode ? "dark" : "light";
+
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-lg errorheading">{message.ERROR_HEADING}</div>
+        <div className={"col-lg errorheading" + style}>
+          {message.ERROR_HEADING}
+        </div>
       </div>
       <div className="row">
-        <div className="col-lg errorbody">{message.ERROR_MESSAGE}</div>
+        <div className={"col-lg errorbody" + style}>
+          {message.ERROR_MESSAGE}
+        </div>
       </div>
       <div className="row">
         <div className="col-lg reloadbutton">

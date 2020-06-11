@@ -17,14 +17,11 @@
 .env.development.local
 .env.test.local
 .env.production.local
-openissues.md
-ext-libraries.md
-endpoints.md
 firebase.json
 .firebaserc
 /.firebase
-live-reload.js
-.gitignore
+firebase-debug.log
+/exclude/*
 
 npm-debug.log*
 yarn-debug.log*

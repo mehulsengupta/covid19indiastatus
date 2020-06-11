@@ -24,6 +24,7 @@ firebase.json
 .firebaserc
 /.firebase
 live-reload.js
+.gitignore
 
 npm-debug.log*
 yarn-debug.log*

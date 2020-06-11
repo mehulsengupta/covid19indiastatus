@@ -5,7 +5,7 @@ import fetchDataTypes from "../components/constantvalues/fetchDataTypes";
 import tableHeader from "../components/constantvalues/tableHeaders";
 
 //custom hook to fetch data from API
-export default function useFetch(dataType) {
+export default function useFetch(dataType, initialLoad) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -14,20 +14,23 @@ export default function useFetch(dataType) {
     setData(data) && !isLoading && setIsLoading(true);
 
   //using effect to set data while fetching - timer can be used to show loading effect default is 0
+  //fetches data only when initial load is true i.e page opened first time or reload on page clicked
   useEffect(() => {
     const timer = setTimeout(() => {
-      dataType === fetchDataTypes.STATE
-        ? apicalls.getStateWise().then((data) => setData(data))
-        : dataType === fetchDataTypes.DISTRICT
-        ? apicalls.getDistrictWise().then((data) => setData(data))
-        : dataType === fetchDataTypes.ZONE
-        ? apicalls.getZones().then((data) => setData(data))
-        : dataType === fetchDataTypes.COUNTRY_DAILY
-        ? apicalls.getCountryDailyChanges().then((data) => setData(data))
-        : apicalls.getStateDailyChanges().then((data) => setData(data));
+      if (initialLoad) {
+        dataType === fetchDataTypes.STATE
+          ? apicalls.getStateWise().then((data) => setData(data))
+          : dataType === fetchDataTypes.DISTRICT
+          ? apicalls.getDistrictWise().then((data) => setData(data))
+          : dataType === fetchDataTypes.ZONE
+          ? apicalls.getZones().then((data) => setData(data))
+          : dataType === fetchDataTypes.COUNTRY_DAILY
+          ? apicalls.getCountryDailyChanges().then((data) => setData(data))
+          : apicalls.getStateDailyChanges().then((data) => setData(data));
+      }
     }, tableHeader.COMPONENT_LOAD_TIME);
     return () => clearTimeout(timer);
-  }, [dataType]);
+  }, [dataType, initialLoad]);
 
   //set loading based on value fetched
   useEffect(() => {

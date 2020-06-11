@@ -4,17 +4,19 @@ import fetchDataTypes from "../components/constantvalues/fetchDataTypes";
 /** A custom hook which acts as a loader for data to be sent out to the App.js 
     component which acts as a store to persist data between page redirects & 
     reloads unless the url is manually changed which causes a fresh call to the API. */
-export const useLoadData = () => {
+export const useLoadData = (initialLoad) => {
   //API calls - passing data down to all child components
 
   //get all state data
   const [stateTotals, setStateTotals, isStateLoading] = useFetch(
-    fetchDataTypes.STATE
+    fetchDataTypes.STATE,
+    initialLoad
   );
 
   //get all district data
   const [districtTotals, setDistrictTotals, isDistrictLoading] = useFetch(
-    fetchDataTypes.DISTRICT
+    fetchDataTypes.DISTRICT,
+    initialLoad
   );
 
   //get zonal data
@@ -25,14 +27,14 @@ export const useLoadData = () => {
     countryDailyChange,
     setCountryDailyChange,
     isCountryDailyChangeLoading,
-  ] = useFetch(fetchDataTypes.COUNTRY_DAILY);
+  ] = useFetch(fetchDataTypes.COUNTRY_DAILY, initialLoad);
 
   //get statewise daily change data
   const [
     stateDailyChange,
     setStateDailyChange,
     isStateDailyChangeLoading,
-  ] = useFetch(fetchDataTypes.STATE_DAILY);
+  ] = useFetch(fetchDataTypes.STATE_DAILY, initialLoad);
 
   return {
     stateTotals,

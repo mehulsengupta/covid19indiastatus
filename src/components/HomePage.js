@@ -32,6 +32,9 @@ const HomePage = ({
 
   //component tree & loader
   return initialLoad || isStateLoading ? (
+    //using isStateLoading here complements the component level loader hence it won't
+    //be visible & once data is loaded, it'll be directly available. Remove isStateLoading from
+    //this condition to view it.
     <LoadingIndicator loaderType={tableHeader.INITIAL_LOADER} />
   ) : (
     <>

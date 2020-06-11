@@ -35,7 +35,7 @@ function App() {
       changes; until the url is manually changed in the address bar. 
       A Redux/Flux like implementation for small to medium range apps with
       few API calls & action types. */
-  const apiData = useLoadData();
+  const apiData = useLoadData(initialLoad); // fetch data from API only on initial loading & refresh
 
   return (
     <>

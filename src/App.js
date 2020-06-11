@@ -71,9 +71,9 @@ function App() {
         {/* About Page */}
         <Route
           path="/about"
-          render={() => (
+          render={(props) => (
             <ErrorBoundary>
-              <AboutPage />
+              <AboutPage {...props} darkMode={darkMode} />
             </ErrorBoundary>
           )}
         />

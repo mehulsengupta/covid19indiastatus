@@ -1,15 +1,12 @@
 import React from "react";
 
-import useDarkMode from "../../customhooks/useDarkMode";
 import aboutInfo from "../constantvalues/aboutInfo";
 import tableHeader from "../constantvalues/tableHeaders";
 import { Link } from "react-router-dom";
 import Header from "../headerfooter/Header";
 
 //About the site
-const AboutPage = () => {
-  const { darkMode } = useDarkMode();
-
+const AboutPage = ({ darkMode }) => {
   const divstyle = "about" + (darkMode ? "dark" : "light");
   const headerdiv = darkMode ? "headerdivdark" : "headerdivlight";
   const datasourcelink = "datasourcelink" + (darkMode ? "dark" : "light");

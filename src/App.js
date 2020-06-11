@@ -29,7 +29,12 @@ function App() {
     return () => clearTimeout(loadTime);
   });
 
-  //get data from API - global - prevent repeated calls to API using useContext
+  /** Get data from API - GLOBAL STORE to prevent repeated calls to API;
+      using useContext. DATA PERSISTS between page refreshes & redirects 
+      by React Router leading to instantaneous/lag-free/loading-free UI 
+      changes; until the url is manually changed in the address bar. 
+      A Redux/Flux like implementation for small to medium range apps with
+      few API calls & action types. */
   const apiData = useLoadData();
 
   return (

@@ -31,7 +31,7 @@ const HomePage = ({
   } = apiData;
 
   //component tree & loader
-  return initialLoad ? (
+  return initialLoad || isStateLoading ? (
     <LoadingIndicator loaderType={tableHeader.INITIAL_LOADER} />
   ) : (
     <>

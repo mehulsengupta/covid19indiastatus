@@ -1,4 +1,4 @@
-## COVID19 INDIA STATUS - https://covid19indiastatus-da4dc.web.app/
+## [COVID19 INDIA STATUS](https://covid19indiastatus-da4dc.web.app/)
 
 A tracker created with React.JS to monitor the spread of the Novel Coronavirus (COVID19) in India,
 using the figures from a crowd sourced database.

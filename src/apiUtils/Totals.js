@@ -5,7 +5,9 @@ import { getDataFromApi } from "./getDataFromApi";
 
 //statewise data
 export async function getStateWise() {
-  return getDataFromApi(url.STATEWISE_URL).then((data) => data.statewise);
+  return getDataFromApi(url.STATEWISE_URL).then((data) =>
+    data ? data.statewise : data
+  );
 }
 
 //district wise data for a particular state
@@ -20,14 +22,14 @@ export async function getZones() {
 
 //country wide daily changes for graph
 export async function getCountryDailyChanges() {
-  return getDataFromApi(url.COUNTRY_DAILY_CHANGES).then(
-    (data) => data.cases_time_series
+  return getDataFromApi(url.COUNTRY_DAILY_CHANGES).then((data) =>
+    data ? data.cases_time_series : data
   );
 }
 
 //state wide daily changes for graph
 export async function getStateDailyChanges() {
-  return getDataFromApi(url.STATE_DAILY_CHANGES).then(
-    (data) => data.states_daily
+  return getDataFromApi(url.STATE_DAILY_CHANGES).then((data) =>
+    data ? data.states_daily : data
   );
 }

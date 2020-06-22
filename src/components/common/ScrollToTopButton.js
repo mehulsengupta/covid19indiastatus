@@ -5,7 +5,7 @@ function ScrollToTopButton() {
   return (
     <div>
       <ScrollUpButton
-        StopPosition={150}
+        StopPosition={0}
         ShowAtPosition={200}
         AnimationDuration={500}
         style={{ outline: "none" }}

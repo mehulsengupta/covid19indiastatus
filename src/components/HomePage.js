@@ -5,11 +5,10 @@ import Main from "./mainviews/Main";
 import NationalCount from "./mainviews/NationalCount";
 import Timer from "./mainviews/Timer";
 import Footer from "./headerfooter/Footer";
-import Acknowledgement from "./mainviews/Acknowledgement";
 import tableHeader from "./constantvalues/tableHeaders";
 import ScrollToTopButton from "./common/ScrollToTopButton";
-import Header from "./headerfooter/Header";
 import LoadingIndicator from "./loader/LoadingIndicator";
+import "../components/mainviews/Sidebar/Sidebar.css";
 
 //Home Page display
 const HomePage = ({
@@ -42,7 +41,6 @@ const HomePage = ({
         delay={tableHeader.FADE_IN_COMPONENT_DELAY}
         transitionDuration={tableHeader.FADE_IN_TRANSITION_DURATION}
       >
-        <Header darkMode={darkMode} />
         <Timer darkMode={darkMode} />
         <NationalCount
           toggleMode={toggleDarkMode}
@@ -66,7 +64,6 @@ const HomePage = ({
         >
           <Main />
         </ApiDataContext.Provider>
-        <Acknowledgement darkMode={darkMode} />
         <Footer />
       </FadeIn>
       <ScrollToTopButton />

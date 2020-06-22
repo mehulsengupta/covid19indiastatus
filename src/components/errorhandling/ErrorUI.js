@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import message from "../constantvalues/tableHeaders";
+import { Link } from "react-router-dom";
 
-function ErrorUI({ darkMode }) {
+function ErrorUI({ darkMode, onReloadClick, history }) {
   const style = darkMode ? "dark" : "light";
 
   return (
@@ -20,7 +20,11 @@ function ErrorUI({ darkMode }) {
       </div>
       <div className="row">
         <div className="col-lg reloadbutton">
-          <Link to="/" className="btn btn-primary">
+          <Link
+            to="/"
+            className="btn btn-primary"
+            onClick={() => onReloadClick()}
+          >
             {"Try Again"}
           </Link>
         </div>

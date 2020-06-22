@@ -1,9 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import aboutInfo from "../constantvalues/aboutInfo";
 import tableHeader from "../constantvalues/tableHeaders";
-import { Link } from "react-router-dom";
-import Header from "../headerfooter/Header";
 
 //About the site
 const AboutPage = ({ darkMode }) => {
@@ -15,7 +14,7 @@ const AboutPage = ({ darkMode }) => {
 
   return (
     <>
-      <Header darkMode={darkMode} />
+      <hr />
       <div className={divstyle}>
         <div>
           <h3 className={headerdiv}>About</h3>

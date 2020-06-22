@@ -34,7 +34,11 @@ export default function useFetch(dataType, initialLoad) {
 
   //set loading based on value fetched
   useEffect(() => {
-    data.length === 0 ? setIsLoading(true) : setIsLoading(false);
+    data !== null
+      ? data.length === 0
+        ? setIsLoading(true)
+        : setIsLoading(false)
+      : setIsLoading(false);
   }, [data]);
 
   return [data, updateData, isLoading];

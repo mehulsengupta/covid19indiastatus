@@ -1,6 +1,4 @@
 import axios from "axios";
-import React from "react";
-import { Redirect } from "react-router-dom";
 
 //Generic function to fetch data from API based on URL
 export async function getDataFromApi(url) {
@@ -8,9 +6,10 @@ export async function getDataFromApi(url) {
     .get(url)
     .then((response) => response.data)
     .catch((error) => {
-      //console.error(error.toString());
-      console.error("API call failed!!");
-      //Redirect on failed API fetch to generic error page
-      return <Redirect to="/error" />;
+      //for failed API call, notify user
+      console.error("API Call Failed!! " + error.message);
+      // alert("Reload!!!");
+      // window.location.reload();
+      return null;
     });
 }

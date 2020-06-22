@@ -22,27 +22,6 @@ function TotalCasesCount({ nationalCount, ...props }) {
               )}
           </div>
         </div>
-
-        <div className="col-lg">
-          <div className="toggleicondiv">
-            <button
-              className={`${
-                props.darkMode ? "reloadicondark" : "reloadiconlight"
-              }`}
-              onClick={props.onReloadClick}
-            >
-              <i className="fas fa-sync-alt"></i>
-            </button>
-            <button
-              className={`${
-                props.darkMode ? "toggleicondark" : "toggleiconlight"
-              }`}
-              onClick={props.toggleMode}
-            >
-              <i className={props.darkMode ? "fas fa-sun" : "fas fa-moon"}></i>
-            </button>
-          </div>
-        </div>
       </div>
       <div className="row">
         {

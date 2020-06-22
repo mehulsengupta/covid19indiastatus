@@ -86,8 +86,8 @@ function App() {
             darkMode ? "sidebar-dark" : "sidebar-light"
           } sidebar sidebar-show ${
             screenSize.isDesktoporLaptop || screenSize.isBigScreen
-              ? ".sidebar-width-big"
-              : ".sidebar-width-small"
+              ? "sidebar-width-big"
+              : "sidebar-width-small"
           }`}
         >
           <SidebarItems

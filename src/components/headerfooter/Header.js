@@ -9,11 +9,12 @@ function Header(props) {
     <FadeIn
       delay={tableHeader.FADE_IN_COMPONENT_DELAY}
       transitionDuration={tableHeader.FADE_IN_TRANSITION_DURATION}
+      className="sticky-top"
     >
       <div
         className={`jumbotron-fluid ${
           props.darkMode ? "headerdivdark" : "headerdivlight"
-        } sticky-top`}
+        }`}
       >
         <h1 className="h1">
           <button

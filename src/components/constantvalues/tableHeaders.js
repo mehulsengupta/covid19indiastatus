@@ -35,7 +35,7 @@ export default {
   SYMPTOMS: "Symptoms",
   SYMPTOMS_LINK:
     "https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html",
-  GOVT_CONTACT_HDR: "Govt. Helplines: ",
+  GOVT_CONTACT_HDR: "Government of India helplines: ",
   GOVT_CONTACT_TF: "1075",
   GOVT_CALL_LL_LINK: "+911123978046",
   GOVT_CONTACT_LL: "011-23978046",

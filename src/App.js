@@ -105,7 +105,6 @@ function App() {
         toggleSidebar={toggleSidebar}
       />
 
-      {/* Header can be used here as a common component to all pages */}
       <Switch>
         {/* to prevent unnecessary unmount and remount, render prop is used with inline*/}
         <Route
